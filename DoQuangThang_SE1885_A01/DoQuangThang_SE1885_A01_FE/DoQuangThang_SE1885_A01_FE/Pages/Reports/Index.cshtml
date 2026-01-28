@@ -1,0 +1,170 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.Reports.IndexModel
+@{
+}
+
+
+
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">📊 System Reporting</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Filter Options</h6>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label asp-for="FromDate" class="form-label">From Date</label>
+                    <input asp-for="FromDate" type="date" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="ToDate" class="form-label">To Date</label>
+                    <input asp-for="ToDate" type="date" class="form-control" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fa fa-filter"></i> Apply Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 border-primary">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Articles</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Summary.TotalCount</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2 border-success">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Active Articles</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Summary.ActiveCount</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2 border-danger">
+                <div class="card-body">
+                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Inactive Articles</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Summary.InactiveCount</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 bg-info text-white">
+                    <h6 class="m-0 font-weight-bold">📂 By Category</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Category ID</th>
+                                <th>Total</th>
+                                <th>Active</th>
+                                <th>Inactive</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ReportByCategory)
+                            {
+                                <tr>
+                                    <td>@item.CategoryId</td>
+                                    <td>@item.TotalCount</td>
+                                    <td>@item.ActiveCount</td>
+                                    <td>@item.InactiveCount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 bg-secondary text-white">
+                    <h6 class="m-0 font-weight-bold">✍️ By Author</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <th>Author ID</th>
+                                <th>Total</th>
+                                <th>Active</th>
+                                <th>Inactive</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ReportByAuthor)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (item.CreatedById.HasValue)
+                                        {
+                                            <span class="fw-bold">@item.CreatedById</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted fst-italic">Unknown</span>
+                                        }
+                                    </td>
+                                    <td>@item.TotalCount</td>
+                                    <td>@item.ActiveCount</td>
+                                    <td>@item.InactiveCount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mb-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 bg-dark text-white">
+                    <h6 class="m-0 font-weight-bold">🚦 By Status</h6>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Status Name</th>
+                                <th>Article Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ReportByStatus)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (item.NewsStatus == true)
+                                        {
+                                            <span class="badge bg-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">Inactive</span>
+                                        }
+                                    </td>
+                                    <td class="fw-bold">@item.TotalCount</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

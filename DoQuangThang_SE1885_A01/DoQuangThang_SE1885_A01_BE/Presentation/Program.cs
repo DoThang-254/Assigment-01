@@ -3,6 +3,7 @@ using BusinessLogic.Services.Implementations;
 using BusinessLogic.Services.Interfaces;
 using DataAccess.DAO;
 using DataAccess.Models;
+using DataAccess.Models.Dto;
 using DataAccess.Repositories.Implementations;
 using DataAccess.Repositories.Interfaces;
 using DataAccess.Repository;
@@ -46,6 +47,59 @@ edmBuilder.EntitySet<Tag>("tag");
 edmBuilder.EntityType<Tag>().HasKey(t => t.TagId);
 edmBuilder.EntitySet<CategoryArticleCount>("CountNewsByCategory");
 edmBuilder.EntityType<CategoryArticleCount>().HasKey(c => c.CategoryId);
+edmBuilder.EntitySet<ReportDTO>("report");
+
+edmBuilder.EntityType<ReportDTO>()
+    .HasKey(r => r.ReportId); // Id giả, chỉ để OData track
+
+// Function: report by category
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByCategory")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("fromDate");
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByCategory")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("toDate");
+
+// Function: report by author
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByAuthor")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("fromDate");
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByAuthor")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("toDate");
+
+// Function: report by status
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByStatus")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("fromDate");
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("ByStatus")
+    .ReturnsCollectionFromEntitySet<ReportDTO>("report")
+    .Parameter<DateTime?>("toDate");
+
+// Function: summary
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("Summary")
+    .Returns<ReportDTO>()
+    .Parameter<DateTime?>("fromDate");
+edmBuilder.EntityType<ReportDTO>()
+    .Collection
+    .Function("Summary")
+    .Returns<ReportDTO>()
+    .Parameter<DateTime?>("toDate");
+
 builder.Services.AddScoped<INewsArticleService, NewsArticleService>();
 builder.Services.AddScoped<INewsArticleRepository, NewsArticleRepository>();
 builder.Services.AddScoped<ISystemAccountRepository, SystemAccountRepository>();
@@ -54,7 +108,8 @@ builder.Services.AddScoped<ITagService , TagService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ISystemAccountService, SystemAccountService>();
-
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.Configure<AdminAccount>(
     builder.Configuration.GetSection("AdminAccount")
 );

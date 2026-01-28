@@ -51,14 +51,6 @@ namespace Presentation.Controllers
         }
 
 
-
-        //[HttpGet("reports")]
-        public IActionResult Reports(int? categoryId)
-        {
-            var response = _newsArticleService.ReportNewsByCategory(categoryId);
-            return Ok(response);
-        }
-
         //[HttpPost]
         public IActionResult Post([FromBody] NewsDto request)
         {

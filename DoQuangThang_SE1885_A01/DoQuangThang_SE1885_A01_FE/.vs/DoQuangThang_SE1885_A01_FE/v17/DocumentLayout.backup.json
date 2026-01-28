@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\news\\detail.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\news\\detail.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\news\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\news\\detail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,41 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml",
-              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml",
-              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml",
-              "ViewState": "AgIAAH0AAAAAAAAAAAAkwI0AAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-28T10:04:35.196Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Detail.cshtml.cs",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml.cs",
-              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml.cs",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml.cs",
-              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T10:00:45.047Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml*",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-28T15:27:05.928Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Detail.cshtml",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml",
-              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml",
-              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Detail.cshtml",
-              "ViewState": "AgIAACIAAAAAAAAAAAAswDwAAABqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-28T10:00:30.925Z",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs*",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs*",
+              "ViewState": "AgIAADIAAAAAAAAAAAAkwFAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T15:26:50.525Z",
               "EditorCaption": ""
             }
           ]
