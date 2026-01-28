@@ -1,4 +1,5 @@
 ﻿using DoQuangThang_SE1885_A01_FE.Models.Accounts;
+using DoQuangThang_SE1885_A01_FE.Pages.News;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,7 +7,7 @@ using System.Text.Json;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
 {
-    public class IndexModel : PageModel
+    public class IndexModel : StaffAuthorize
     {
         private readonly HttpClient _http;
         private readonly JsonSerializerOptions _jsonOptions;

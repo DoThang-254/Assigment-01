@@ -49,7 +49,7 @@
                         <div class="card-body">
                             <span class="badge bg-secondary mb-2">@related.Category?.CategoryName</span>
                             <h6 class="card-title">
-                                <a asp-page="./Details" asp-route-id="@related.NewsArticleId" class="text-decoration-none">
+                                <a asp-page="/News/Detail" asp-route-id="@related.NewsArticleId" class="text-decoration-none">
                                     @related.NewsTitle
                                 </a>
                             </h6>

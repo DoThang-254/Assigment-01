@@ -21,12 +21,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
                         @* Ví dụ: Menu quản lý chỉ hiện khi là Staff/Admin *@
                         @if (Context.Session.GetInt32("Role") == 1)
                         {
@@ -35,9 +29,33 @@
                             </li>
                             <li>
                                 <a class="nav-link text-dark" asp-page="/News/NewsHistory">
-                                    <i class="bi bi-clock-history"></i> History News
+                                    History News
                                 </a>
                             </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-page="/Categories/Index">
+                                     Categories Management
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-page="/Tags/Index">
+                                    Tags Management
+                                </a>
+                            </li>
+
+                        }
+                        @if (Context.Session.GetInt32("Role") == 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Reports/Index">DashBoard</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-page="/Accounts/Index">
+                                     Account Management
+                                </a>
+                            </li>
+                            
+
                         }
                     </ul>
 

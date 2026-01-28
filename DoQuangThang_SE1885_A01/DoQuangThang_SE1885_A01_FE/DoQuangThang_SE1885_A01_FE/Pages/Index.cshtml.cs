@@ -109,22 +109,27 @@ namespace DoQuangThang_SE1885_A01_FE.Pages
 
 
             // ===== Base query =====
-            var query = new StringBuilder(
-                "api/news?$expand=Category,CreatedBy,Tags&&$filter=NewsStatus eq true&$count=true"
-            );
+            var query = new StringBuilder("api/news?$expand=Category,CreatedBy,Tags&$count=true");
 
             var filters = new List<string>();
 
+            // 2. THÊM: Đưa điều kiện mặc định vào list filters
+            // (Nếu bạn muốn luôn chỉ lấy bài Active)
+            filters.Add("NewsStatus eq true");
+
             // =====================================================
-            // 1. GLOBAL KEYWORD SEARCH (NewsTitle, Headline, NewsContent)
+            // 1. GLOBAL KEYWORD SEARCH
             // =====================================================
             if (!string.IsNullOrWhiteSpace(Keyword))
             {
-                string k = Keyword.Trim().Replace("'", "''"); // tránh lỗi OData
+                // Nên dùng Uri.EscapeDataString để xử lý ký tự đặc biệt và dấu cách
+                string k = Uri.EscapeDataString(Keyword.Trim());
+
+                // Mẹo: Dùng tolower() để search không phân biệt hoa thường (nếu DB hỗ trợ)
                 filters.Add(
-                    $"(contains(NewsTitle,'{k}') " +
-                    $"or contains(Headline,'{k}') " +
-                    $"or contains(NewsContent,'{k}'))"
+                    $"(contains(tolower(NewsTitle),tolower('{k}')) " +
+                    $"or contains(tolower(Headline),tolower('{k}')) " +
+                    $"or contains(tolower(NewsContent),tolower('{k}')))"
                 );
             }
 
@@ -137,25 +142,20 @@ namespace DoQuangThang_SE1885_A01_FE.Pages
             }
 
             // =====================================================
-            // 3. FILTER BY TAG NAME
+            // 3. FILTER BY AUTHOR (AuthorId)
             // =====================================================
             if (AuthorId.HasValue)
             {
                 filters.Add($"CreatedById eq {AuthorId.Value}");
             }
 
+            // =====================================================
+            // 4. FILTER BY TAG NAME
+            // =====================================================
             if (!string.IsNullOrEmpty(TagName))
             {
                 filters.Add($"Tags/any(t: t/TagName eq '{TagName}')");
             }
-
-            //// =====================================================
-            //// 4. FILTER BY CREATED BY ID
-            //// =====================================================
-            //if (CreatedByID.HasValue)
-            //{
-            //    filters.Add($"CreatedByID eq {CreatedByID.Value}");
-            //}
 
             // =====================================================
             // 5. FILTER BY CREATED DATE
@@ -170,14 +170,15 @@ namespace DoQuangThang_SE1885_A01_FE.Pages
                 filters.Add($"CreatedDate le {EndDate.Value.AddDays(1):yyyy-MM-ddTHH:mm:ss}Z");
             }
 
-            // ===== Apply filter =====
+            // 3. APPLY FILTER: Chỉ append $filter MỘT LẦN duy nhất
             if (filters.Any())
             {
+                // Nối tất cả điều kiện bằng " and "
                 query.Append("&$filter=" + string.Join(" and ", filters));
             }
 
             // =====================================================
-            // 6. SORT (CreatedDate or NewsTitle)
+            // 6. SORT
             // =====================================================
             if (!string.IsNullOrEmpty(SortBy))
             {
@@ -185,7 +186,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages
             }
             else
             {
-                query.Append("&$orderby=CreatedDate desc"); // default
+                query.Append("&$orderby=CreatedDate desc");
             }
 
             // =====================================================
@@ -196,7 +197,10 @@ namespace DoQuangThang_SE1885_A01_FE.Pages
             query.Append($"&$skip={skip}&$top={PageSize}");
 
             // ===== Call API =====
-            var response = await client.GetAsync(query.ToString());
+            // Debug: Đặt breakpoint ở đây để copy URL kiểm tra trên Postman
+            string finalUrl = query.ToString();
+
+            var response = await client.GetAsync(finalUrl);
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();

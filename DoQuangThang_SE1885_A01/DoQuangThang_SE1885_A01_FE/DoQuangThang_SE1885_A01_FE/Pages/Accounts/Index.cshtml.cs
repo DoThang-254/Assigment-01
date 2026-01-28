@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
 {
-    public class IndexModel : PageModel
+    public class IndexModel : AdminAuthorizeModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration; 

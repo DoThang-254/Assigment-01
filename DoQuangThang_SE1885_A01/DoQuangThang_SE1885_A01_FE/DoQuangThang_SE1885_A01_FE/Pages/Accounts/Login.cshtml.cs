@@ -68,7 +68,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
             switch (loginResult!.Role)
             {
                 case 0:
-                    return RedirectToPage("/Accounts/Index");
+                    return RedirectToPage("/Reports/Index");
                 case 1:
                     return RedirectToPage("/News/Index");
                 default:

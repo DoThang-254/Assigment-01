@@ -1,5 +1,6 @@
 ﻿using DoQuangThang_SE1885_A01_FE.Models.Accounts;
 using DoQuangThang_SE1885_A01_FE.Models.Tags;
+using DoQuangThang_SE1885_A01_FE.Pages.News;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Text.Json;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
 {
-    public class IndexModel : PageModel
+    public class IndexModel : StaffAuthorize
     {
         private readonly IHttpClientFactory _httpClientFactory;
 

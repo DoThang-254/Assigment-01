@@ -12,7 +12,7 @@ using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.News
 {
-    public class NewsHistoryModel : PageModel
+    public class NewsHistoryModel : StaffAuthorize
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly JsonSerializerOptions _jsonOptions;

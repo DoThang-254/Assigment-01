@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\dataaccess\\dao\\reportdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\reportdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\reportcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\dataaccess\\repositories\\implementations\\reportrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\repositories\\implementations\\reportrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,38 +42,24 @@
               "RelativeToolTip": "Presentation\\Program.cs",
               "ViewState": "AgIAAEYAAAAAAAAAAAAkwFQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T16:01:50.313Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T16:01:50.313Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ReportDAO.cs",
               "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO\\ReportDAO.cs",
               "RelativeDocumentMoniker": "DataAccess\\DAO\\ReportDAO.cs",
               "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO\\ReportDAO.cs",
               "RelativeToolTip": "DataAccess\\DAO\\ReportDAO.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAowIkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAYwFIAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-28T15:59:27.218Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ReportRepository.cs",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Repositories\\Implementations\\ReportRepository.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Repositories\\Implementations\\ReportRepository.cs",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Repositories\\Implementations\\ReportRepository.cs",
-              "RelativeToolTip": "DataAccess\\Repositories\\Implementations\\ReportRepository.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAuwCIAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T14:57:07.345Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ReportController.cs",
               "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\ReportController.cs",
               "RelativeDocumentMoniker": "Presentation\\Controllers\\ReportController.cs",
@@ -85,8 +67,7 @@
               "RelativeToolTip": "Presentation\\Controllers\\ReportController.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwC8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-28T14:49:46.807Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-28T14:49:46.807Z"
             }
           ]
         }

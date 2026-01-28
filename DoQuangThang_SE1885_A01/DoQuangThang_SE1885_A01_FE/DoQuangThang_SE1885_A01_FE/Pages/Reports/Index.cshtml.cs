@@ -1,4 +1,5 @@
 ﻿using DoQuangThang_SE1885_A01_FE.Models.Accounts;
+using DoQuangThang_SE1885_A01_FE.Pages.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
@@ -7,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace DoQuangThang_SE1885_A01_FE.Pages.Reports
 {
 
-    public class IndexModel : PageModel
+    public class IndexModel : AdminAuthorizeModel
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly JsonSerializerOptions _jsonOptions;
