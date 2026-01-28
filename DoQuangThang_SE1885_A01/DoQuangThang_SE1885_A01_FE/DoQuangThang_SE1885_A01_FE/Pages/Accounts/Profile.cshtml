@@ -1,0 +1,108 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.Accounts.ProfileModel
+@{
+}
+<div class="container mt-5">
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">My Profile</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.CurrentAccount != null)
+                    {
+                        <div class="mb-3">
+                            <label class="fw-bold">Full Name:</label>
+                            <p class="form-control-plaintext border-bottom">@Model.CurrentAccount.AccountName</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Email:</label>
+                            <p class="form-control-plaintext border-bottom">@Model.CurrentAccount.AccountEmail</p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold">Role:</label>
+                            <p>
+                                @if (Model.CurrentAccount.AccountRole == 1)
+                                {
+                                    <span class="badge bg-danger">Staff</span>
+                                }
+                                else if (Model.CurrentAccount.AccountRole == 2)
+                                {
+
+                                    <span class="badge bg-success">Lecturer</span>
+                                }
+                                else
+                                {
+
+                                    <span class="badge bg-secondary">Member</span>
+                                }
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-danger">Cannot load profile data.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Change Password</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-page-handler="ChangePassword">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="PasswordInput.OldPassword" class="form-label">Old Password</label>
+                            <input asp-for="PasswordInput.OldPassword" class="form-control" placeholder="Enter current password" />
+                            <span asp-validation-for="PasswordInput.OldPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PasswordInput.NewPassword" class="form-label">New Password</label>
+                            <input asp-for="PasswordInput.NewPassword" class="form-control" placeholder="Enter new password" />
+                            <span asp-validation-for="PasswordInput.NewPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="PasswordInput.ConfirmPassword" class="form-label">Confirm New Password</label>
+                            <input asp-for="PasswordInput.ConfirmPassword" class="form-control" placeholder="Re-enter new password" />
+                            <span asp-validation-for="PasswordInput.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

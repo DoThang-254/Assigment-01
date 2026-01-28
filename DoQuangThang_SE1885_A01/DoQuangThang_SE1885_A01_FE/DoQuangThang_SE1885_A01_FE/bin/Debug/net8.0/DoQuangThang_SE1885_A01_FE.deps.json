@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "DoQuangThang_SE1885_A01_FE/1.0.0": {
+        "runtime": {
+          "DoQuangThang_SE1885_A01_FE.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DoQuangThang_SE1885_A01_FE/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

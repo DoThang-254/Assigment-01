@@ -1,0 +1,174 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.Tags.IndexModel
+@{
+}
+
+
+<h2>Tag Management</h2>
+
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+    + Add Tag
+</button>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<form method="get" class="mb-3">
+    <input type="text" name="Keyword" value="@Model.Keyword" placeholder="Search tag name" />
+    <button type="submit">Search</button>
+</form>
+
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tag Name</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tag in Model.Tags)
+        {
+            <tr>
+                <td>@tag.TagId</td>
+                <td>@tag.TagName</td>
+                <td>@tag.Note</td>
+                <td>
+                    <button class="btn btn-sm btn-warning"
+                            onclick="openEdit(@tag.TagId, '@tag.TagName', '@tag.Note')">
+                        Edit
+                    </button>
+
+                    <form method="post" asp-page-handler="Delete"
+                          asp-route-id="@tag.TagId"
+                          onsubmit="return confirm('Are you sure you want to delete this tag?');"
+                          style="display:inline">
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.HasPreviousPage)
+{
+    <li class="page-item">
+        <a class="page-link"
+           asp-page="./Index"
+           asp-route-PageNumber="@(Model.PageNumber - 1)"
+           asp-route-Keyword="@Model.Keyword">
+            Previous
+        </a>
+    </li>
+}
+
+<li class="page-item active">
+    <span class="page-link">
+        @Model.PageNumber / @Model.TotalPages
+    </span>
+</li>
+
+@if (Model.HasNextPage)
+{
+    <li class="page-item">
+        <a class="page-link"
+           asp-page="./Index"
+           asp-route-PageNumber="@(Model.PageNumber + 1)"
+           asp-route-Keyword="@Model.Keyword">
+            Next
+        </a>
+    </li>
+}
+
+
+
+
+<!-- CREATE MODAL -->
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="Create">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Tag</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Tag Name</label>
+                        <input asp-for="CreateTag.TagName" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Note</label>
+                        <textarea asp-for="CreateTag.Note" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="Update">
+                <input type="hidden" asp-for="UpdateTag.TagId" id="editId" />
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Tag</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label>Tag Name</label>
+                        <input asp-for="UpdateTag.TagName" class="form-control" id="editName" />
+                    </div>
+                    <div class="mb-3">
+                        <label>Note</label>
+                        <textarea asp-for="UpdateTag.Note" class="form-control" id="editNote"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openEdit(id, name, note) {
+            document.getElementById("editId").value = id;
+            document.getElementById("editName").value = name;
+            document.getElementById("editNote").value = note ?? "";
+
+            var modal = new bootstrap.Modal(document.getElementById('editModal'));
+            modal.show();
+        }
+    </script>
+}

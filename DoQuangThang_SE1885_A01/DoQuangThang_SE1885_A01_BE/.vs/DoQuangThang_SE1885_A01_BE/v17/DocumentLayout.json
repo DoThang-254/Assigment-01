@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\newscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{97BF6EE7-3A26-4819-92D9-1B31CF629337}|BusinessLogic\\BusinessLogic.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\businesslogic\\services\\implementations\\newsarticleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{97BF6EE7-3A26-4819-92D9-1B31CF629337}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\implementations\\newsarticleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\dataaccess\\dao\\newsarticledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\dao\\newsarticledao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NewsArticleDAO.cs",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO\\NewsArticleDAO.cs",
+              "RelativeDocumentMoniker": "DataAccess\\DAO\\NewsArticleDAO.cs",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO\\NewsArticleDAO.cs",
+              "RelativeToolTip": "DataAccess\\DAO\\NewsArticleDAO.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAQwC4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T09:46:08.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NewsArticleService.cs",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\NewsArticleService.cs",
+              "RelativeDocumentMoniker": "BusinessLogic\\Services\\Implementations\\NewsArticleService.cs",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\NewsArticleService.cs",
+              "RelativeToolTip": "BusinessLogic\\Services\\Implementations\\NewsArticleService.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAswHMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T09:07:29.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Program.cs",
+              "RelativeDocumentMoniker": "Presentation\\Program.cs",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Program.cs",
+              "RelativeToolTip": "Presentation\\Program.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAACYAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T09:04:17.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "newsController.cs",
+              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\newsController.cs",
+              "RelativeDocumentMoniker": "Presentation\\Controllers\\newsController.cs",
+              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\newsController.cs",
+              "RelativeToolTip": "Presentation\\Controllers\\newsController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAqwBkAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T07:40:37.314Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

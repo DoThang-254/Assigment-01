@@ -1,0 +1,28 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.Auth.LoginModel
+@{
+}
+
+
+<h2>Login</h2>
+
+<form method="post">
+    <div>
+        <label>Email</label>
+        <input asp-for="Login.Email" />
+        <span asp-validation-for="Login.Email"></span>
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input asp-for="Login.Password" type="password" />
+        <span asp-validation-for="Login.Password"></span>
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red">@Model.ErrorMessage</p>
+}
