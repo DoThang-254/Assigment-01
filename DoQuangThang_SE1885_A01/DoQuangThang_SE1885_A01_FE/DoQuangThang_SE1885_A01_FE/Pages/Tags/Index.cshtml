@@ -1,159 +1,205 @@
 ﻿@page
 @model DoQuangThang_SE1885_A01_FE.Pages.Tags.IndexModel
 @{
+    ViewData["Title"] = "Tag Management";
 }
 
+<style>
+    /* Full-screen Loader Overlay */
+    #globalLoaderCategories {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 
-<h2>Tag Management</h2>
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+    }
+</style>
 
-<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
-    + Add Tag
-</button>
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<div id="globalLoaderCategories" class="d-none">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
     </div>
-}
+    <div class="mt-2 text-muted fw-bold">Processing...</div>
+</div>
 
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2 class="mt-4">Tag Management</h2>
+        <button class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#createModal">
+            <i class="bi bi-plus-lg"></i> + Add New Tag
+        </button>
     </div>
-}
 
-<form method="get" class="mb-3">
-    <input type="text" name="Keyword" value="@Model.Keyword" placeholder="Search tag name" />
-    <button type="submit">Search</button>
-</form>
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
 
-
-
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tag Name</th>
-            <th>Note</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var tag in Model.Tags)
-        {
-            <tr>
-                <td>@tag.TagId</td>
-                <td>@tag.TagName</td>
-                <td>@tag.Note</td>
-                <td>
-                    <button class="btn btn-sm btn-warning"
-                            onclick="openEdit(@tag.TagId, '@tag.TagName', '@tag.Note')">
-                        Edit
-                    </button>
-
-                    <form method="post" asp-page-handler="Delete"
-                          asp-route-id="@tag.TagId"
-                          onsubmit="return confirm('Are you sure you want to delete this tag?');"
-                          style="display:inline">
-                        <button class="btn btn-sm btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@if (Model.HasPreviousPage)
-{
-    <li class="page-item">
-        <a class="page-link"
-           asp-page="./Index"
-           asp-route-PageNumber="@(Model.PageNumber - 1)"
-           asp-route-Keyword="@Model.Keyword">
-            Previous
-        </a>
-    </li>
-}
-
-<li class="page-item active">
-    <span class="page-link">
-        @Model.PageNumber / @Model.TotalPages
-    </span>
-</li>
-
-@if (Model.HasNextPage)
-{
-    <li class="page-item">
-        <a class="page-link"
-           asp-page="./Index"
-           asp-route-PageNumber="@(Model.PageNumber + 1)"
-           asp-route-Keyword="@Model.Keyword">
-            Next
-        </a>
-    </li>
-}
-
-
-
-
-<!-- CREATE MODAL -->
-<div class="modal fade" id="createModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" asp-page-handler="Create">
-                <div class="modal-header">
-                    <h5 class="modal-title">Create Tag</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <i class="bi bi-table me-1"></i> Tag List
                 </div>
+                <div class="col-md-6">
+                    <form method="get" class="d-flex justify-content-end" data-show-loader="true">
+                        <div class="input-group">
+                            <input type="text" name="Keyword" class="form-control"
+                                   value="@Model.Keyword" placeholder="Search by tag name..." aria-label="Search">
+                            <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width: 10%;">ID</th>
+                            <th style="width: 30%;">Tag Name</th>
+                            <th style="width: 40%;">Note</th>
+                            <th style="width: 20%;" class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Tags != null && Model.Tags.Any())
+                        {
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <tr>
+                                    <td>@tag.TagId</td>
+                                    <td class="fw-bold text-primary">@tag.TagName</td>
+                                    <td class="text-muted small">
+                                        @(string.IsNullOrEmpty(tag.Note) ? "N/A" : tag.Note)
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <button class="btn btn-sm btn-outline-warning"
+                                                    onclick="openEdit(@tag.TagId, '@tag.TagName', '@tag.Note')">
+                                                Edit
+                                            </button>
 
+                                            <form method="post" asp-page-handler="Delete" asp-route-id="@tag.TagId"
+                                                  data-show-loader="true"
+                                                  onsubmit="return confirm('Are you sure you want to delete this tag?');">
+                                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center py-4 text-muted">
+                                    No tags found matching your criteria.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="Page navigation" class="mt-3">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                        <a class="page-link show-loader-on-click"
+                           asp-page="./Index"
+                           asp-route-PageNumber="@(Model.PageNumber - 1)"
+                           asp-route-Keyword="@Model.Keyword">Previous</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Page @Model.PageNumber of @Model.TotalPages</span>
+                    </li>
+                    <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                        <a class="page-link show-loader-on-click"
+                           asp-page="./Index"
+                           asp-route-PageNumber="@(Model.PageNumber + 1)"
+                           asp-route-Keyword="@Model.Keyword">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="Create" class="needs-validation" data-show-loader="true" novalidate>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Create New Tag</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Tag Name</label>
-                        <input asp-for="CreateTag.TagName" class="form-control" />
+                        <label class="form-label fw-bold">Tag Name <span class="text-danger">*</span></label>
+                        <input asp-for="CreateTag.TagName" class="form-control" required />
+                        <div class="invalid-feedback">Please provide a tag name.</div>
                     </div>
                     <div class="mb-3">
-                        <label>Note</label>
-                        <textarea asp-for="CreateTag.Note" class="form-control"></textarea>
+                        <label class="form-label">Note</label>
+                        <textarea asp-for="CreateTag.Note" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
-
                 <div class="modal-footer">
-                    <button class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Tag</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- EDIT MODAL -->
-<div class="modal fade" id="editModal" tabindex="-1">
-    <div class="modal-dialog">
+<div class="modal fade" id="editModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" asp-page-handler="Update">
+            <form method="post" asp-page-handler="Update" class="needs-validation" data-show-loader="true" novalidate>
                 <input type="hidden" asp-for="UpdateTag.TagId" id="editId" />
 
-                <div class="modal-header">
+                <div class="modal-header bg-warning text-dark">
                     <h5 class="modal-title">Edit Tag</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label>Tag Name</label>
-                        <input asp-for="UpdateTag.TagName" class="form-control" id="editName" />
+                        <label class="form-label fw-bold">Tag Name <span class="text-danger">*</span></label>
+                        <input asp-for="UpdateTag.TagName" class="form-control" id="editName" required />
+                        <div class="invalid-feedback">Please provide a tag name.</div>
                     </div>
                     <div class="mb-3">
-                        <label>Note</label>
-                        <textarea asp-for="UpdateTag.Note" class="form-control" id="editNote"></textarea>
+                        <label class="form-label">Note</label>
+                        <textarea asp-for="UpdateTag.Note" class="form-control" id="editNote" rows="3"></textarea>
                     </div>
                 </div>
-
                 <div class="modal-footer">
-                    <button class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-warning">Update Tag</button>
                 </div>
             </form>
         </div>
@@ -162,6 +208,56 @@
 
 @section Scripts {
     <script>
+        // 1. Loader Logic
+        function showGlobalLoaderCategories() {
+            document.getElementById('globalLoaderCategories')?.classList.remove('d-none');
+        }
+        function hideGlobalLoaderCategories() {
+            document.getElementById('globalLoaderCategories')?.classList.add('d-none');
+        }
+
+        // 2. Attach loader to forms (with validation check!) and links
+        (function () {
+            // Forms marked with data-show-loader
+            var forms = document.querySelectorAll('form[data-show-loader="true"]');
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function (event) {
+                    // CRITICAL: Check validation first
+                    if (!f.checkValidity()) {
+                        // Let Bootstrap validation handle UI; do not show loader
+                        return;
+                    }
+                    showGlobalLoaderCategories();
+                });
+            });
+
+            // Pagination links
+            var links = document.querySelectorAll('.show-loader-on-click');
+            links.forEach(function (a) {
+                a.addEventListener('click', function () { showGlobalLoaderCategories(); });
+            });
+
+            // Hide loader when page returns from server (e.g. back button or reload)
+            window.addEventListener('pageshow', function () { hideGlobalLoaderCategories(); });
+        })();
+
+        // 3. Bootstrap Validation Logic
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })();
+
+        // 4. Edit Modal Helper
         function openEdit(id, name, note) {
             document.getElementById("editId").value = id;
             document.getElementById("editName").value = name;
@@ -170,5 +266,36 @@
             var modal = new bootstrap.Modal(document.getElementById('editModal'));
             modal.show();
         }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        (function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/reportHub")
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Warning)
+                .build();
+
+            connection.on("MetadataUpdated", (metaType) => {
+                try {
+                    const t = (metaType || "").toString().toLowerCase();
+                    if (t === "tag") location.reload();
+                } catch (e) {
+                    console.warn(e);
+                    location.reload();
+                }
+            });
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.info("Connected to /reportHub (Tags page)");
+                } catch (err) {
+                    setTimeout(start, 5000);
+                }
+            }
+            start();
+        })();
     </script>
 }

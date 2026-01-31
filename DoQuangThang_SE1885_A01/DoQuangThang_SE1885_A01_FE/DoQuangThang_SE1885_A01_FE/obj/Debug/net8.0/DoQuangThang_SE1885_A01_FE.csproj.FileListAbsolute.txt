@@ -32,3 +32,13 @@ D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A
 D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\obj\Debug\net8.0\DoQuangThang_SE1885_A01_FE.pdb
 D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\obj\Debug\net8.0\DoQuangThang_SE1885_A01_FE.genruntimeconfig.cache
 D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\obj\Debug\net8.0\ref\DoQuangThang_SE1885_A01_FE.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\ClosedXML.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\ClosedXML.Parser.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\ExcelNumberFormat.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\RBush.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\SixLabors.Fonts.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\bin\Debug\net8.0\System.IO.Packaging.dll
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\obj\Debug\net8.0\DoQuangThang_SE1885_A01_FE.csproj.AssemblyReference.cache
+D:\.net\DoQuangThang_SE1885_A01\DoQuangThang_SE1885_A01_FE\DoQuangThang_SE1885_A01_FE\obj\Debug\net8.0\DoQuangT.73215770.Up2Date

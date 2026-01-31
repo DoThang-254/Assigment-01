@@ -3,6 +3,38 @@
 @{
 }
 
+<!-- Toast container (accessible) -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index:1080;">
+    <div id="toastContainer">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-success border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-danger border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Global loading overlay -->
+<div id="globalLoader" class="position-fixed top-0 start-0 w-100 h-100 d-none" style="z-index:1090; background: rgba(255,255,255,0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+        <span class="ms-2 fw-semibold">Loading…</span>
+    </div>
+</div>
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="text-primary"><i class="bi bi-newspaper"></i> News History</h2>
     <button class="btn btn-success"
@@ -12,7 +44,7 @@
 </div>
 
 <div class="card card-body bg-light mb-4">
-    <form method="get">
+    <form method="get" data-show-loader="false">
         <div class="row g-3">
             <div class="col-md-3">
                 <label class="form-label fw-bold">Keyword</label>
@@ -43,6 +75,12 @@
             </div>
         </div>
     </form>
+</div>
+
+<!-- Legend for status badges -->
+<div class="mb-3">
+    <small class="text-muted me-3"><span class="badge bg-success me-1">&nbsp;</span> Active</small>
+    <small class="text-muted"><span class="badge bg-secondary me-1">&nbsp;</span> Inactive</small>
 </div>
 
 @if (TempData["SuccessMessage"] != null)
@@ -299,6 +337,41 @@ else{
 
 @section Scripts {
     <script>
+        (function () {
+            var toasts = document.querySelectorAll('#toastContainer .toast');
+            toasts.forEach(function (t) {
+                try {
+                    var bsToast = new bootstrap.Toast(t, { delay: 5000 });
+                    bsToast.show();
+                } catch (e) { console.warn(e); }
+            });
+        })();
+
+        function showGlobalLoader() {
+            var g = document.getElementById('globalLoader');
+            if (g) g.classList.remove('d-none');
+        }
+        function hideGlobalLoader() {
+            var g = document.getElementById('globalLoader');
+            if (g) g.classList.add('d-none');
+        }
+
+        (function () {
+            var forms = document.querySelectorAll('form[data-show-loader="true"]');
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function () {
+                    showGlobalLoader();
+                });
+            });
+
+            var links = document.querySelectorAll('.show-loader-on-click');
+            links.forEach(function (a) {
+                a.addEventListener('click', function () { showGlobalLoader(); });
+            });
+
+            window.addEventListener('pageshow', function () { hideGlobalLoader(); });
+        })();
+
         function openSaveModal(id, title, headline, content,source , catId, status, authorId , currentTagIds) {
             // Reset form logic
             document.getElementById('modalId').value = id;

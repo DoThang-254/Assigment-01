@@ -49,6 +49,19 @@ namespace Presentation.Controllers
             }
         }
 
+        public IActionResult Put([FromRoute] short key , [FromBody] UpdateProfileRequestDto request)
+        {
+            try
+            {
+                _systemAccountService.UpdateAccount(key , request);
+                return Ok("Account updated successfully");
+            }
+            catch
+            {
+                return BadRequest("Something went wrong");
+            }
+        }
+
 
         //[HttpPatch("admin-reset-password")]
         [HttpPatch]

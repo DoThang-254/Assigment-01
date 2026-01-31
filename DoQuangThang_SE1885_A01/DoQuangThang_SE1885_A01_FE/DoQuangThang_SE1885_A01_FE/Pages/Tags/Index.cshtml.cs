@@ -5,16 +5,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text;
 using System.Text.Json;
+using Microsoft.AspNetCore.SignalR;
+using DoQuangThang_SE1885_A01_FE.Hubs;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
 {
     public class IndexModel : StaffAuthorize
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHubContext<ReportHub> _reportHub;
 
-        public IndexModel(IHttpClientFactory httpClientFactory)
+        public IndexModel(IHttpClientFactory httpClientFactory, IHubContext<ReportHub> reportHub)
         {
             _httpClientFactory = httpClientFactory;
+            _reportHub = reportHub;
         }
 
         public List<TagDto> Tags { get; set; } = new();
@@ -87,6 +91,10 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
             }
 
             TempData["Success"] = "Tag created successfully.";
+
+            // notify clients that metadata changed (tags)
+            await _reportHub.Clients.All.SendAsync("MetadataUpdated", "tag");
+
             return RedirectToPage();
         }
 
@@ -105,6 +113,10 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
             }
 
             TempData["Success"] = "Tag updated successfully.";
+
+            // notify clients
+            await _reportHub.Clients.All.SendAsync("MetadataUpdated", "tag");
+
             return RedirectToPage();
         }
 
@@ -122,6 +134,10 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
             }
 
             TempData["Success"] = "Tag deleted successfully.";
+
+            // notify clients
+            await _reportHub.Clients.All.SendAsync("MetadataUpdated", "tag");
+
             return RedirectToPage();
         }
 

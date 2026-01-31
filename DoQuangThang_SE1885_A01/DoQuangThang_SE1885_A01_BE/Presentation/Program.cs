@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
 using Presentation.ViewModels.Auth;
+using Slot8_9_7_CsvHelper;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -115,15 +116,18 @@ builder.Services.Configure<AdminAccount>(
 );
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddControllers()
+builder.Services.AddControllers(options =>
+    {
+        // Register CSV output formatter so controllers can return CSV (text/csv)
+        options.OutputFormatters.Add(new CsvOutputFormatter());
+    })
     .AddOData(opt => opt
         .Select()
         .Filter()
         .OrderBy()
         .Count()
         .Expand() 
-        .SetMaxTop(100)
-        .AddRouteComponents("api", edmBuilder.GetEdmModel()) 
+        .SetMaxTop(100).AddRouteComponents("api", edmBuilder.GetEdmModel()) 
     ).AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;

@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Services.Interfaces;
+﻿using BusinessLogic.Dto;
+using BusinessLogic.Services.Interfaces;
 using DataAccess.Constants;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
@@ -84,9 +85,16 @@ namespace BusinessLogic.Services.Implementations
         }
 
 
-        public void UpdateAccount(SystemAccount account)
+        public void UpdateAccount(short accountId, UpdateProfileRequestDto account)
         {
-            _systemAccountRepository.UpdateAccount(account);
+            var existingAccount = _systemAccountRepository.GetAccountById(accountId);
+            if (existingAccount == null)
+            {
+                throw new Exception("Account not found");
+            }
+            existingAccount.AccountName = account.AccountName ?? existingAccount.AccountName;
+            existingAccount.AccountEmail = account.AccountEmail ?? existingAccount.AccountEmail;
+            _systemAccountRepository.UpdateAccount(existingAccount);
         }
 
         public bool DeleteAccount(short accountId)
@@ -115,7 +123,7 @@ namespace BusinessLogic.Services.Implementations
             if (account == null)
                 throw new Exception("Account not found");
 
-            if (account.AccountPassword != oldPassword) 
+            if (account.AccountPassword != oldPassword)
             {
                 throw new Exception("Old password is incorrect");
             }

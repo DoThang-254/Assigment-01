@@ -5,9 +5,11 @@ using DoQuangThang_SE1885_A01_FE.Models.News;
 using DoQuangThang_SE1885_A01_FE.Models.Tags;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using DoQuangThang_SE1885_A01_FE.Hubs;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.News
 {
@@ -15,10 +17,12 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.News
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly JsonSerializerOptions _jsonOptions;
+        private readonly IHubContext<ReportHub> _reportHub;
 
-        public IndexModel(IHttpClientFactory httpClientFactory)
+        public IndexModel(IHttpClientFactory httpClientFactory, IHubContext<ReportHub> reportHub)
         {
             _httpClientFactory = httpClientFactory;
+            _reportHub = reportHub;
             _jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
@@ -206,6 +210,8 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.News
             if (response.IsSuccessStatusCode)
             {
                 TempData["SuccessMessage"] = isUpdate ? "News updated successfully!" : "News created successfully!";
+                // after successful operation
+                await _reportHub.Clients.All.SendAsync("ReportsUpdated");
             }
             else
             {
@@ -225,6 +231,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.News
             if (response.IsSuccessStatusCode)
             {
                 TempData["SuccessMessage"] = "News deleted successfully!";
+                await _reportHub.Clients.All.SendAsync("ReportsDeleted");
             }
             else
             {

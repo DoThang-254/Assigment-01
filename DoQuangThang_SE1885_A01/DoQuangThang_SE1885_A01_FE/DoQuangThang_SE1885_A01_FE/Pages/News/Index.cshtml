@@ -4,247 +4,289 @@
     ViewData["Title"] = "News Management";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="text-primary"><i class="bi bi-newspaper"></i> News Management</h2>
-    <button class="btn btn-success"
-            onclick="openSaveModal('0', '', '', '', '', '', true, 1, '')">
-        <i class="bi bi-plus-lg"></i> Create News
-    </button>
+<style>
+    /* Full-screen Loader */
+    #globalLoader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .news-content-preview {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    /* Scrollable tag container in modal */
+    .tag-container {
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+        padding: 0.5rem;
+        background-color: #f8f9fa;
+    }
+</style>
+
+<div id="globalLoader" class="d-none">
+    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="mt-2 text-muted fw-bold">Processing...</div>
 </div>
 
-<div class="card card-body bg-light mb-4">
-    <form method="get">
-        <div class="row g-3">
-            <div class="col-md-3">
-                <label class="form-label fw-bold">Keyword</label>
-                <input type="text" name="Keyword" value="@Model.Keyword" class="form-control" placeholder="Title, Author, Category..." />
-            </div>
-            <div class="col-md-2">
-                <label class="form-label fw-bold">Status</label>
-                <select name="Status" class="form-select">
-                    <option value="">-- All --</option>
-                    <option value="true" selected="@(Model.Status == "true")">Active</option>
-                    <option value="false" selected="@(Model.Status == "false")">Inactive</option>
-                </select>
-            </div>
-            <div class="col-md-5">
-                <label class="form-label fw-bold">Created Date Range</label>
-                <div class="input-group">
-                    <span class="input-group-text">From</span>
-                    <input type="date" name="StartDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" />
-                    <span class="input-group-text">To</span>
-                    <input type="date" name="EndDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index: 1080">
+    <div id="toastContainer">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast show align-items-center text-white bg-success border-0 mb-2" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
                 </div>
             </div>
-            <div class="col-md-2 d-flex align-items-end">
-                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Filter</button>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast show align-items-center text-white bg-danger border-0 mb-2" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["ErrorMessage"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
             </div>
-            <div class="col-12 text-end">
-                <a asp-page="./Index" class="text-decoration-none small">Clear Filters</a>
-            </div>
-        </div>
-    </form>
+        }
+    </div>
 </div>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["SuccessMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center my-4">
+        <h2 class="text-primary"><i class="bi bi-newspaper"></i> News Management</h2>
+        <button class="btn btn-success shadow-sm" onclick="openSaveModal('0', '', '', '', '', '', true, 1, '')">
+            <i class="bi bi-plus-circle"></i> Create News
+        </button>
     </div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["ErrorMessage"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light py-3">
+            <h5 class="card-title mb-0"><i class="bi bi-funnel"></i> Filter Options</h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3" data-show-loader="true" novalidate>
+                <div class="col-md-3">
+                    <label class="form-label fw-bold small text-muted">Keyword</label>
+                    <input type="text" name="Keyword" value="@Model.Keyword" class="form-control" placeholder="Search title, author..." />
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-bold small text-muted">Status</label>
+                    <select name="Status" class="form-select">
+                        <option value="">-- All --</option>
+                        <option value="true" selected="@(Model.Status == "true")">Active</option>
+                        <option value="false" selected="@(Model.Status == "false")">Inactive</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-bold small text-muted">Created Date Range</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white">From</span>
+                        <input type="date" name="StartDate" value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+                        <span class="input-group-text bg-white">To</span>
+                        <input type="date" name="EndDate" value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search"></i> Search</button>
+                    <a asp-page="./Index" class="btn btn-outline-secondary" title="Reset Filters"><i class="bi bi-x-lg"></i></a>
+                </div>
+            </form>
+        </div>
     </div>
-}
 
-<table class="table table-bordered table-hover shadow-sm">
-    <thead class="table-primary">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Author</th>
-            <th>Created Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-            <th>Tags</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.NewsList != null && Model.NewsList.Any())
-        {
-            @foreach (var item in Model.NewsList)
-            {
-                <tr>
-                    <td>@item.NewsArticleId</td>
-                    <td title="@item.NewsTitle">
-                        <span class="fw-bold">@item.NewsTitle</span>
-                        <div class="small text-muted text-truncate" style="max-width: 250px;">
-                            @item.NewsContent
-                        </div>
-                    </td>
-                    <td>
-                        <span class="badge bg-info text-dark">
-                            @(item.Category?.CategoryName ?? "No Category")
-                        </span>
-                    </td>
-                    <td>@(item.CreatedBy?.AccountName ?? "Unknown")</td>
-                    <td>@(item.CreatedDate?.ToString("dd/MM/yyyy HH:mm"))</td>
-                    <td>
-                        @if (item.NewsStatus == true)
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0 align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th style="width: 25%">Article Info</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Tags</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.NewsList != null && Model.NewsList.Any())
                         {
-                            <span class="badge bg-success">Active</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Inactive</span>
-                        }
-                    </td>
-                    <td>
-                        <button class="btn btn-sm btn-warning"
-                                onclick="openSaveModal(
-                    '@item.NewsArticleId',
-                    '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))',
-                    '@(System.Web.HttpUtility.JavaScriptStringEncode(item.Headline))',
-                    '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsContent))',
-                    '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsSource))',
-                    '@item.CategoryId',
-                    @(item.NewsStatus == true ? "true" : "false"),
-                    1,
-                    '@(item.Tags != null ? string.Join(",", item.Tags.Select(t => t.TagId)) : "")'
-                )">
-                            Update
-                        </button>
-
-                        <button class="btn btn-sm btn-info text-white"
-                                title="Duplicate this article"
-                                onclick="openSaveModal(
-                '0',  /* QUAN TRỌNG: ID = 0 để báo hiệu tạo mới */
-                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))', /* Copy Title */
-                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.Headline))',
-                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsContent))',
-                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsSource))',
-                '@item.CategoryId',
-                @(item.NewsStatus == true ? "true" : "false"),
-                1,
-                '@(item.Tags != null ? string.Join(",", item.Tags.Select(t => t.TagId)) : "")'
-            )">
-                            <i class="bi bi-files"></i> Copy
-                        </button>
-
-                        <button class="btn btn-sm btn-danger"
-                                onclick="openDeleteModal('@item.NewsArticleId', '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))')">
-                            Remove
-                        </button>
-                    </td>
-                    <td>
-                        @if (item.Tags != null && item.Tags.Any())
-                        {
-                            @foreach (var tag in item.Tags)
+                            @foreach (var item in Model.NewsList)
                             {
-                                <span class="badge bg-secondary me-1">@tag.TagName</span>
+                                <tr>
+                                    <td>@item.NewsArticleId</td>
+                                    <td>
+                                        <div class="fw-bold text-primary">@item.NewsTitle</div>
+                                        <div class="small text-muted news-content-preview">@item.Headline</div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">@(item.Category?.CategoryName ?? "None")</span></td>
+                                    <td>
+                                        <div class="small"><i class="bi bi-person"></i> @(item.CreatedBy?.AccountName ?? "Unknown")</div>
+                                    </td>
+                                    <td class="small">@(item.CreatedDate?.ToString("MMM dd, yyyy"))</td>
+                                    <td>
+                                        @if (item.NewsStatus == true)
+                                        {
+                                            <span class="badge bg-success"><i class="bi bi-check-circle"></i> Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary"><i class="bi bi-dash-circle"></i> Inactive</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.Tags != null && item.Tags.Any())
+                                        {
+                                            @foreach (var tag in item.Tags.Take(3))
+                                            {
+                                                <span class="badge bg-info text-dark me-1" style="font-size: 0.7em;">@tag.TagName</span>
+                                            }
+                                            @if (item.Tags.Count > 3)
+                                            {
+                                                <span class="badge bg-secondary" style="font-size: 0.7em;">+@(item.Tags.Count - 3)</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-outline-primary"
+                                                    onclick="openSaveModal(
+                                                                '@item.NewsArticleId',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.Headline))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsContent))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsSource))',
+                                                                '@item.CategoryId',
+                                                                @(item.NewsStatus == true ? "true" : "false"),
+                                                                1,
+                                                                '@(item.Tags != null ? string.Join(",", item.Tags.Select(t => t.TagId)) : "")'
+                                                            )">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+
+                                            <button class="btn btn-outline-info" title="Copy"
+                                                    onclick="openSaveModal(
+                                                                '0',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.Headline))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsContent))',
+                                                                '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsSource))',
+                                                                '@item.CategoryId',
+                                                                @(item.NewsStatus == true ? "true" : "false"),
+                                                                1,
+                                                                '@(item.Tags != null ? string.Join(",", item.Tags.Select(t => t.TagId)) : "")'
+                                                            )">
+                                                <i class="bi bi-files"></i>
+                                            </button>
+
+                                            <button class="btn btn-outline-danger"
+                                                    onclick="openDeleteModal('@item.NewsArticleId', '@(System.Web.HttpUtility.JavaScriptStringEncode(item.NewsTitle))')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                             }
                         }
                         else
                         {
-                            <span class="text-muted small">No Tags</span>
+                            <tr>
+                                <td colspan="8" class="text-center py-5 text-muted">
+                                    <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                    No news articles found matching your criteria.
+                                </td>
+                            </tr>
                         }
-                </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td colspan="7" class="text-center text-muted py-4">No news articles found matching your criteria.</td>
-            </tr>
-        }
-    </tbody>
-</table>
-@if (Model.TotalPages > 0)
-{
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            @{
-                var prevParms = new Dictionary<string, string>
-                {
-                { "CurrentPage", (Model.CurrentPage - 1).ToString() },
-                { "Keyword", Model.Keyword },
-                { "Status", Model.Status },
-                { "StartDate", Model.StartDate?.ToString("yyyy-MM-dd") },
-                { "EndDate", Model.EndDate?.ToString("yyyy-MM-dd") }
-                };
+                    </tbody>
+                </table>
+            </div>
 
-                var nextParms = new Dictionary<string, string>
-                {
-                { "CurrentPage", (Model.CurrentPage + 1).ToString() },
-                { "Keyword", Model.Keyword },
-                { "Status", Model.Status },
-                { "StartDate", Model.StartDate?.ToString("yyyy-MM-dd") },
-                { "EndDate", Model.EndDate?.ToString("yyyy-MM-dd") }
-                };
-            }
-
-            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
-                <a class="page-link" asp-all-route-data="prevParms">Previous</a>
-            </li>
-
-            @for (int i = 1; i <= Model.TotalPages; i++)
+            @if (Model.TotalPages > 0)
             {
-                var pageParms = new Dictionary<string, string>
-                {
-                { "CurrentPage", i.ToString() },
-                { "Keyword", Model.Keyword },
-                { "Status", Model.Status },
-                { "StartDate", Model.StartDate?.ToString("yyyy-MM-dd") },
-                { "EndDate", Model.EndDate?.ToString("yyyy-MM-dd") }
-                };
+                <div class="card-footer bg-white py-3">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-0">
+                            @{
+                                var routeData = new Dictionary<string, string>
+                                                {
+                                                { "Keyword", Model.Keyword },
+                                                { "Status", Model.Status },
+                                                { "StartDate", Model.StartDate?.ToString("yyyy-MM-dd") },
+                                                { "EndDate", Model.EndDate?.ToString("yyyy-MM-dd") }
+                                                };
+                            }
 
-                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-all-route-data="pageParms">@i</a>
-                </li>
+                            <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
+                                <a class="page-link show-loader-on-click" asp-page="./Index" asp-all-route-data="routeData" asp-route-CurrentPage="@(Model.CurrentPage - 1)">Previous</a>
+                            </li>
+
+                            <li class="page-item disabled"><span class="page-link">Page @Model.CurrentPage of @Model.TotalPages</span></li>
+
+                            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                                <a class="page-link show-loader-on-click" asp-page="./Index" asp-all-route-data="routeData" asp-route-CurrentPage="@(Model.CurrentPage + 1)">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             }
+        </div>
+    </div>
+</div>
 
-            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
-                <a class="page-link" asp-all-route-data="nextParms">Next</a>
-            </li>
-        </ul>
-    </nav>
-}
-else{
-<div class="text-center text-muted">No pagination available.</div>
-}
-
-<div class="modal fade" id="saveModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="saveModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" asp-page-handler="Save">
+            <form method="post" asp-page-handler="Save" class="needs-validation" data-show-loader="true" novalidate>
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="saveModalLabel">News Article</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="NewsArticleId" id="modalId" />
 
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">News Title</label>
-                        <input type="text" name="NewsTitle" id="modalTitle" class="form-control" required />
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-bold">Title <span class="text-danger">*</span></label>
+                            <input type="text" name="NewsTitle" id="modalTitle" class="form-control" required />
+                            <div class="invalid-feedback">Title is required.</div>
+                        </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Headline</label>
+                        <label class="form-label fw-bold">Headline <span class="text-danger">*</span></label>
                         <input type="text" name="Headline" id="modalHeadline" class="form-control" required />
+                        <div class="invalid-feedback">Headline is required.</div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">News Source</label>
-                        <input type="text" name="NewsSource" id="modalSource" class="form-control" required />
-                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Category</label>
+                            <label class="form-label fw-bold">Source</label>
+                            <input type="text" name="NewsSource" id="modalSource" class="form-control" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Category <span class="text-danger">*</span></label>
                             <select name="CategoryId" id="modalCategory" class="form-select" required>
                                 <option value="">-- Select Category --</option>
                                 @foreach (var cat in Model.Categories)
@@ -252,10 +294,21 @@ else{
                                     <option value="@cat.CategoryId">@cat.CategoryName</option>
                                 }
                             </select>
+                            <div class="invalid-feedback">Please select a category.</div>
                         </div>
-                        <div class="mb-3">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">Status</label>
+                            <select name="NewsStatus" id="modalStatus" class="form-select">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Tags</label>
-                            <div class="card p-2" style="max-height: 150px; overflow-y: auto;">
+                            <div class="tag-container">
                                 @if (Model.AllTags.Any())
                                 {
                                     @foreach (var tag in Model.AllTags)
@@ -273,26 +326,19 @@ else{
                                 }
                                 else
                                 {
-                                    <div class="text-muted accept-policy">No tags available.</div> 
+                                    <div class="text-muted small">No tags available in system.</div>
                                 }
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label fw-bold">Status</label>
-                        <select name="NewsStatus" id="modalStatus" class="form-select">
-                            <option value="true">Active</option>
-                            <option value="false">Inactive</option>
-                        </select>
-                    </div>
-
                     <div class="mb-3">
-                        <label class="form-label fw-bold">Content</label>
-                        <textarea name="NewsContent" id="modalContent" class="form-control" rows="5" required></textarea>
+                        <label class="form-label fw-bold">Content <span class="text-danger">*</span></label>
+                        <textarea name="NewsContent" id="modalContent" class="form-control" rows="6" required></textarea>
+                        <div class="invalid-feedback">Content cannot be empty.</div>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
@@ -301,22 +347,26 @@ else{
     </div>
 </div>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form method="post" asp-page-handler="Delete">
+            <form method="post" asp-page-handler="Delete" data-show-loader="true">
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title">Confirm Delete</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="bi bi-trash3 text-danger" style="font-size: 3rem;"></i>
+                    </div>
                     <input type="hidden" name="id" id="deleteId" />
-                    <p>Are you sure you want to delete news: <strong id="deleteTitle" class="text-danger"></strong>?</p>
-                    <small class="text-muted">This action usually cannot be undone.</small>
+                    <p class="mb-1">Are you sure you want to delete:</p>
+                    <h5 id="deleteTitle" class="fw-bold text-dark"></h5>
+                    <small class="text-muted d-block mt-2">This action cannot be undone.</small>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger px-4">Delete</button>
                 </div>
             </form>
         </div>
@@ -324,73 +374,120 @@ else{
 </div>
 
 @section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+
     <script>
-        function openSaveModal(id, title, headline, content,source , catId, status, authorId , currentTagIds) {
-            // Reset form logic
+        // 1. MODAL LOGIC
+        function openSaveModal(id, title, headline, content, source, categoryId, status, createdBy, tags) {
+            // Reset form validation state
+            var form = document.querySelector('#saveModal form');
+            form.classList.remove('was-validated');
+            form.reset();
+
+            // Set basic values
             document.getElementById('modalId').value = id;
             document.getElementById('modalTitle').value = title;
+            document.getElementById('modalHeadline').value = headline;
             document.getElementById('modalContent').value = content;
-            document.getElementById('modalHeadline').value = headline || '';
-            document.getElementById('modalSource').value = source || '';
+            document.getElementById('modalSource').value = source;
+            document.getElementById('modalCategory').value = categoryId;
+            document.getElementById('modalStatus').value = status ? "true" : "false";
 
-            var statusSelect = document.getElementById('modalStatus');
-        if (status === true || status === 'true' || status === 'True') {
-            statusSelect.value = 'true';
-        } else {
-            statusSelect.value = 'false';
-        }
-
-            // Set Select values
-            var catSelect = document.getElementById('modalCategory');
-            catSelect.value = catId;
-
-                var checkboxes = document.querySelectorAll('.tag-checkbox');
-        checkboxes.forEach(cb => cb.checked = false);
-
-        // Bước 2b: Nếu có currentTagIds (dạng chuỗi "1,3,5"), thì check vào các ô tương ứng
-        if (currentTagIds && currentTagIds.length > 0) {
-            // Tách chuỗi thành mảng các ID
-            var idsArray = currentTagIds.split(',');
-
-            idsArray.forEach(tagId => {
-                // Tìm checkbox có value == tagId và check nó
-                var cb = document.querySelector(`.tag-checkbox[value="${tagId}"]`);
-                if (cb) {
-                    cb.checked = true;
-                }
-            });
-        }
-
-            // Title Modal
-            // var modalTitle = document.getElementById('saveModalLabel');
-            // if (id === '0' || id === '') {
-            //     modalTitle.innerText = "Create News Article";
-            //     document.getElementById('modalId').value = ''; 
-            // } else {
-            //     modalTitle.innerText = "Update News Article (ID: " + id + ")";
-            // }
-
-                    if (id === '0' || id === '') {
-            // Sửa lại một chút để kiểm tra xem có nội dung (title) được truyền vào không
-            if (title && title.length > 0) {
-                 modalTitle.innerText = "Duplicate News Article"; // Nếu ID=0 mà có Title => Là Duplicate
+            // Update Modal Title based on action
+            var modalLabel = document.getElementById('saveModalLabel');
+            if(id === '0') {
+                modalLabel.innerText = title ? "Copy News Article" : "Create News Article";
             } else {
-                 modalTitle.innerText = "Create News Article"; // Nếu ID=0 và không có Title => Là Create mới tinh
+                modalLabel.innerText = "Edit News Article";
             }
-            document.getElementById('modalId').value = '0'; // Đảm bảo set value là 0
-        } else {
-            modalTitle.innerText = "Update News Article (ID: " + id + ")";
-        }
 
-            var myModal = new bootstrap.Modal(document.getElementById('saveModal'));
-            myModal.show();
+            // Handle Tags Checkboxes
+            // First, uncheck everything
+            document.querySelectorAll('.tag-checkbox').forEach(cb => cb.checked = false);
+
+            // If tags string exists (e.g. "1,4,5"), check specific boxes
+            if (tags) {
+                var tagArray = tags.toString().split(',');
+                tagArray.forEach(tagId => {
+                    var checkbox = document.getElementById('tag_' + tagId);
+                    if (checkbox) checkbox.checked = true;
+                });
+            }
+
+            var modal = new bootstrap.Modal(document.getElementById('saveModal'));
+            modal.show();
         }
 
         function openDeleteModal(id, title) {
             document.getElementById('deleteId').value = id;
             document.getElementById('deleteTitle').innerText = title;
-            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            myModal.show();
+            var modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            modal.show();
         }
+
+        // 2. LOADER & VALIDATION LOGIC
+        (function () {
+            // Helper functions
+            function showGlobalLoader() { document.getElementById('globalLoader')?.classList.remove('d-none'); }
+            function hideGlobalLoader() { document.getElementById('globalLoader')?.classList.add('d-none'); }
+
+            // Attach to Forms
+            var forms = document.querySelectorAll('form[data-show-loader="true"]');
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function (event) {
+                    // CRITICAL FIX: If form is invalid, stop here. Do NOT show loader.
+                    if (!f.checkValidity()) {
+                        // Let Bootstrap generic validation script handle visual feedback
+                        return;
+                    }
+                    showGlobalLoader();
+                });
+            });
+
+            // Attach to Links
+            var links = document.querySelectorAll('.show-loader-on-click');
+            links.forEach(function (a) {
+                a.addEventListener('click', function () { showGlobalLoader(); });
+            });
+
+            // Ensure loader hides on page show (history navigation)
+            window.addEventListener('pageshow', function () { hideGlobalLoader(); });
+
+            // Bootstrap Validation styling
+            var validationForms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(validationForms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+
+        // 3. SIGNALR LOGIC
+        (function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/reportHub")
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Warning)
+                .build();
+
+            connection.on("MetadataUpdated", (metaType) => {
+                const t = (metaType || "").toString().toLowerCase();
+                if (t === "news") location.reload();
+            });
+
+            async function start() {
+                try {
+                    await connection.start();
+                } catch (err) {
+                    setTimeout(start, 5000);
+                }
+            }
+            start();
+        })();
     </script>
 }

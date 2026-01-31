@@ -18,7 +18,10 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Accounts
         }
 
         public SystemAccountDto CurrentAccount { get; set; }
-        [BindProperty]
+
+        // Keep these as properties so the Razor view can render values,
+        // but do NOT use [BindProperty] to avoid automatic cross-form validation.
+        public UpdateProfileInputModel ProfileInput { get; set; }
         public ChangePasswordInputModel PasswordInput { get; set; }
 
         public async Task<IActionResult> OnGetAsync()
@@ -28,53 +31,83 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Accounts
             return Page();
         }
 
-        // Hàm xử lý khi người dùng bấm nút Change Password
-        public async Task<IActionResult> OnPostChangePasswordAsync()
+        public async Task<IActionResult> OnPostUpdateProfileAsync(UpdateProfileInputModel profileInput)
         {
-            // 1. Validate Form
-            if (!ModelState.IsValid)
+            // Validate only the incoming model using the same prefix used in the form (ProfileInput)
+            if (!TryValidateModel(profileInput, "ProfileInput"))
             {
-                await LoadAccountProfile(); // Load lại thông tin user để hiển thị lại trang
+                ProfileInput = profileInput;
+                await LoadAccountProfile();
                 return Page();
             }
 
             var accountId = HttpContext.Session.GetInt32("AccountId");
             if (accountId == null) return RedirectToPage("/Index");
 
-            // 2. Gọi API Patch
             var client = _httpClientFactory.CreateClient("NewsAPI");
+            string requestUrl = $"api/account({accountId})";
 
-            // Vì Controller của bạn nhận tham số qua Query String hoặc Form, 
-            // với HttpPatch và signature (int, string, string), cách an toàn nhất để gọi là truyền qua Query String 
-            // (hoặc phải sửa Controller để nhận Object [FromBody]).
-            // Dưới đây là cách gọi theo Signature Controller bạn cung cấp:
+            var payload = new
+            {
+                AccountName = profileInput.AccountName,
+                AccountEmail = profileInput.AccountEmail
+            };
 
-            string requestUrl = $"api/auth/change-password?accountId={accountId}&oldPassword={PasswordInput.OldPassword}&newPassword={PasswordInput.NewPassword}";
+            var json = JsonSerializer.Serialize(payload, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // HttpPatch yêu cầu một body, dù rỗng
-            var content = new StringContent("", Encoding.UTF8, "application/json");
+            var response = await client.PutAsync(requestUrl, content);
 
+            if (response.IsSuccessStatusCode)
+            {
+                TempData["SuccessMessage"] = "Profile updated successfully!";
+                return RedirectToPage(); // PRG
+            }
+
+            var errorMsg = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError(string.Empty, errorMsg);
+            TempData["ErrorMessage"] = "Failed to update profile. " + errorMsg;
+
+            ProfileInput = profileInput;
+            await LoadAccountProfile();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostChangePasswordAsync(ChangePasswordInputModel passwordInput)
+        {
+            // Validate only the incoming model using the same prefix used in the form (PasswordInput)
+            if (!TryValidateModel(passwordInput, "PasswordInput"))
+            {
+                PasswordInput = passwordInput;
+                await LoadAccountProfile();
+                return Page();
+            }
+
+            var accountId = HttpContext.Session.GetInt32("AccountId");
+            if (accountId == null) return RedirectToPage("/Index");
+
+            var client = _httpClientFactory.CreateClient("NewsAPI");
+            string requestUrl = $"api/auth/change-password?accountId={accountId}&oldPassword={passwordInput.OldPassword}&newPassword={passwordInput.NewPassword}";
+
+            // HttpPatch expects a body, send empty JSON
+            var content = new StringContent("{}", Encoding.UTF8, "application/json");
             var response = await client.PatchAsync(requestUrl, content);
 
             if (response.IsSuccessStatusCode)
             {
                 TempData["SuccessMessage"] = "Password changed successfully!";
-                // Reset form
-                PasswordInput = new ChangePasswordInputModel();
-            }
-            else
-            {
-                // Đọc lỗi từ API trả về (BadRequest)
-                var errorMsg = await response.Content.ReadAsStringAsync();
-                ModelState.AddModelError(string.Empty, errorMsg);
-                TempData["ErrorMessage"] = "Failed to change password. " + errorMsg;
+                return RedirectToPage(); // PRG to clear form
             }
 
+            var errorMsg = await response.Content.ReadAsStringAsync();
+            ModelState.AddModelError(string.Empty, errorMsg);
+            TempData["ErrorMessage"] = "Failed to change password. " + errorMsg;
+
+            PasswordInput = passwordInput;
             await LoadAccountProfile();
             return Page();
         }
 
-        // Tách logic load profile ra hàm riêng để tái sử dụng
         private async Task LoadAccountProfile()
         {
             var accountId = HttpContext.Session.GetInt32("AccountId");
@@ -87,34 +120,53 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Accounts
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     CurrentAccount = JsonSerializer.Deserialize<SystemAccountDto>(json, _jsonOptions);
+
+                    // Initialize editable model only if not already set (preserve submitted values on failed POST)
+                    if (ProfileInput == null)
+                    {
+                        ProfileInput = new UpdateProfileInputModel
+                        {
+                            AccountName = CurrentAccount?.AccountName,
+                            AccountEmail = CurrentAccount?.AccountEmail
+                        };
+                    }
                 }
             }
         }
     }
 
-}
+    public class SystemAccountDto
+    {
+        public short AccountId { get; set; }
+        public string AccountName { get; set; }
+        public string AccountEmail { get; set; }
+        public int AccountRole { get; set; }
+        public string AccountPassword { get; set; }
+    }
 
-public class SystemAccountDto
-{
-    public short AccountId { get; set; }
-    public string AccountName { get; set; }
-    public string AccountEmail { get; set; }
-    public int AccountRole { get; set; } // 1: Staff, 2: Lecturer, etc.
-    public string AccountPassword { get; set; } // Thường không nên hiển thị, nhưng tôi sẽ để vào theo yêu cầu
-}
+    public class UpdateProfileInputModel
+    {
+        [Required(ErrorMessage = "Full name is required")]
+        public string AccountName { get; set; }
 
-public class ChangePasswordInputModel
-{
-    [Required(ErrorMessage = "Old password is required")]
-    [DataType(DataType.Password)]
-    public string OldPassword { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
+        public string AccountEmail { get; set; }
+    }
 
-    [Required(ErrorMessage = "New password is required")]
-    [DataType(DataType.Password)]
-    [MinLength(3, ErrorMessage = "Password must be at least 3 characters")]
-    public string NewPassword { get; set; }
+    public class ChangePasswordInputModel
+    {
+        [Required(ErrorMessage = "Old password is required")]
+        [DataType(DataType.Password)]
+        public string OldPassword { get; set; }
 
-    [DataType(DataType.Password)]
-    [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
-    public string ConfirmPassword { get; set; }
+        [Required(ErrorMessage = "New password is required")]
+        [DataType(DataType.Password)]
+        [MinLength(3, ErrorMessage = "Password must be at least 3 characters")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
 }

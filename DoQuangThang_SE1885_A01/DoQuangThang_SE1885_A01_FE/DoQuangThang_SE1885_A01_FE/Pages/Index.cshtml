@@ -233,3 +233,53 @@ else
         </ul>
     </nav>
 }
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        (function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/reportHub")
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Warning)
+                .build();
+
+            connection.on("ReportsUpdated", () => {
+                console.info("ReportsUpdated received - reloading page to refresh news list.");
+                location.reload();
+            });
+
+            connection.on("ReportsDeleted", () => {
+                console.info("ReportsDeleted received - reloading page to refresh news list.");
+                location.reload();
+            });
+
+            // New: listen for metadata changes (tags/categories)
+            connection.on("MetadataUpdated", (metaType) => {
+                try {
+                    const t = (metaType || "").toString().toLowerCase();
+                    console.info("MetadataUpdated received:", t);
+                    if (t === "tag" || t === "category") {
+                        // reload to refresh dropdowns/filters on the home page
+                        location.reload();
+                    }
+                } catch (e) {
+                    console.warn("Error handling MetadataUpdated", e);
+                    location.reload();
+                }
+            });
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.info("Connected to /reportHub");
+                } catch (err) {
+                    console.warn("SignalR connection failed, retrying in 5s", err);
+                    setTimeout(start, 5000);
+                }
+            }
+
+            start();
+        })();
+    </script>
+}

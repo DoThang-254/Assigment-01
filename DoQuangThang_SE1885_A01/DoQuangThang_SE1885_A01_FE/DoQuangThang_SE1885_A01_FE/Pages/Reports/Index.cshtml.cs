@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.IO;
+using ClosedXML.Excel;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Reports
 {
@@ -78,6 +83,186 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Reports
                 // Xử lý lỗi nếu cần (ghi log, v.v)
                 // Console.WriteLine(ex.Message);
             }
+        }
+
+        // Export handler: requests CSV from API and returns it as downloadable file.
+        // reportType must be one of: ByCategory, ByAuthor, ByStatus, Summary
+        public async Task<IActionResult> OnPostExportAsync(string reportType, DateTime? fromDate, DateTime? toDate)
+        {
+            if (string.IsNullOrWhiteSpace(reportType))
+            {
+                TempData["ErrorMessage"] = "Report type is required.";
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            // Normalize route name (basic safety)
+            var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "ByCategory", "ByAuthor", "ByStatus", "Summary" };
+            if (!allowed.Contains(reportType))
+            {
+                TempData["ErrorMessage"] = "Invalid report type.";
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            var client = _httpClientFactory.CreateClient("NewsAPI");
+
+            var sb = new StringBuilder($"/api/report/{reportType}");
+            var hasParams = false;
+            if (fromDate.HasValue)
+            {
+                sb.Append(hasParams ? '&' : '?').Append($"fromDate={fromDate:yyyy-MM-dd}");
+                hasParams = true;
+            }
+            if (toDate.HasValue)
+            {
+                sb.Append(hasParams ? '&' : '?').Append($"toDate={toDate:yyyy-MM-dd}");
+            }
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, sb.ToString());
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("text/csv"));
+
+            HttpResponseMessage response;
+            try
+            {
+                response = await client.SendAsync(request);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Export failed: " + ex.Message;
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                TempData["ErrorMessage"] = "Export failed: " + err;
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            var bytes = await response.Content.ReadAsByteArrayAsync();
+
+            // Create a filename that includes report type and date range
+            string fromPart = fromDate?.ToString("yyyyMMdd") ?? "all";
+            string toPart = toDate?.ToString("yyyyMMdd") ?? "all";
+            var safeName = reportType.ToLowerInvariant() + $"_{fromPart}_{toPart}.csv";
+
+            // Return CSV (Excel can open)
+            return File(bytes, "text/csv; charset=utf-8", safeName);
+        }
+
+        // New: Export as real Excel (.xlsx) using ClosedXML
+        // reportType: "ByCategory", "ByAuthor", "ByStatus", or "Summary"
+        public async Task<IActionResult> OnPostExportXlsxAsync(string reportType, DateTime? fromDate, DateTime? toDate)
+        {
+            if (string.IsNullOrWhiteSpace(reportType))
+            {
+                TempData["ErrorMessage"] = "Report type is required.";
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            var allowed = new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "ByCategory", "ByAuthor", "ByStatus", "Summary" };
+            if (!allowed.Contains(reportType))
+            {
+                TempData["ErrorMessage"] = "Invalid report type.";
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            var client = _httpClientFactory.CreateClient("NewsAPI");
+
+            var sb = new StringBuilder($"/api/report/{reportType}");
+            var hasParams = false;
+            if (fromDate.HasValue)
+            {
+                sb.Append(hasParams ? '&' : '?').Append($"fromDate={fromDate:yyyy-MM-dd}");
+                hasParams = true;
+            }
+            if (toDate.HasValue)
+            {
+                sb.Append(hasParams ? '&' : '?').Append($"toDate={toDate:yyyy-MM-dd}");
+            }
+
+            HttpResponseMessage response;
+            try
+            {
+                // Request JSON (default) so we can build a structured Excel workbook
+                response = await client.GetAsync(sb.ToString());
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Export failed: " + ex.Message;
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var err = await response.Content.ReadAsStringAsync();
+                TempData["ErrorMessage"] = "Export failed: " + err;
+                return RedirectToPage(new { FromDate = fromDate, ToDate = toDate });
+            }
+
+            // Deserialize JSON into List<ReportDTO> or single ReportDTO for Summary
+            List<ReportDTO> rows = new();
+            if (string.Equals(reportType, "Summary", StringComparison.OrdinalIgnoreCase))
+            {
+                var single = JsonSerializer.Deserialize<ReportDTO>(
+                    await response.Content.ReadAsStringAsync(), _jsonOptions);
+                if (single != null) rows.Add(single);
+            }
+            else
+            {
+                rows = JsonSerializer.Deserialize<List<ReportDTO>>(
+                    await response.Content.ReadAsStringAsync(), _jsonOptions) ?? new();
+            }
+
+            // Build Excel workbook
+            using var workbook = new XLWorkbook();
+            var ws = workbook.Worksheets.Add(reportType);
+
+            // Header row
+            var headers = new[]
+            {
+                "ReportId",
+                "CategoryId",
+                "CreatedById",
+                "NewsStatus",
+                "TotalArticles",
+                "ActiveArticles",
+                "InactiveArticles"
+            };
+
+            for (int i = 0; i < headers.Length; i++)
+            {
+                ws.Cell(1, i + 1).Value = headers[i];
+                ws.Cell(1, i + 1).Style.Font.Bold = true;
+            }
+
+            // Data rows
+            int r = 2;
+            foreach (var item in rows)
+            {
+                ws.Cell(r, 1).Value = item.ReportId;
+                ws.Cell(r, 2).Value = item.CategoryId;
+                ws.Cell(r, 3).Value = item.CreatedById;
+                ws.Cell(r, 4).Value = item.NewsStatus.HasValue ? (item.NewsStatus.Value ? "Active" : "Inactive") : "";
+                ws.Cell(r, 5).Value = item.TotalCount;
+                ws.Cell(r, 6).Value = item.ActiveCount;
+                ws.Cell(r, 7).Value = item.InactiveCount;
+                r++;
+            }
+
+            // Adjust columns
+            ws.Columns().AdjustToContents();
+
+            // Stream workbook to client
+            using var ms = new MemoryStream();
+            workbook.SaveAs(ms);
+            ms.Position = 0;
+
+            string fromPart = fromDate?.ToString("yyyyMMdd") ?? "all";
+            string toPart = toDate?.ToString("yyyyMMdd") ?? "all";
+            var fileName = $"{reportType}_{fromPart}_{toPart}.xlsx";
+
+            return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
     }
 

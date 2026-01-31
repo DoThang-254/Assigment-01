@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
+using Microsoft.AspNetCore.SignalR;
+using DoQuangThang_SE1885_A01_FE.Hubs;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
 {
@@ -11,13 +13,16 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
     {
         private readonly HttpClient _http;
         private readonly JsonSerializerOptions _jsonOptions;
-        public IndexModel(IHttpClientFactory factory)
+        private readonly IHubContext<ReportHub> _reportHub;
+
+        public IndexModel(IHttpClientFactory factory, IHubContext<ReportHub> reportHub)
         {
             _http = factory.CreateClient("NewsAPI");
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             };
+            _reportHub = reportHub;
         }
 
         public List<CategoryViewDto> Categories { get; set; } = new();
@@ -91,29 +96,19 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
                 ModelState.Remove(key);
             }
 
-            //// Kiểm tra xem Category có hợp lệ không
-            //if (!ModelState.IsValid)
-            //{
-            //    // Debug: Đặt breakpoint tại đây để xem lỗi là gì
-            //    // var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-
-            //    await OnGetAsync(SearchTerm);
-            //    return Page();
-            //}
-
-            // Gọi API
-            // Lưu ý: Dùng URL tương đối "/api/category" thay vì full path nếu cùng host
             var response = await _http.PostAsJsonAsync("https://localhost:7066/api/category", Category);
 
             if (!response.IsSuccessStatusCode)
             {
-                // Đọc lỗi từ API trả về để hiển thị chi tiết hơn (nếu có)
                 var errorContent = await response.Content.ReadAsStringAsync();
                 TempData["Error"] = $"Failed: {errorContent}";
             }
             else
             {
                 TempData["Success"] = "Category created successfully.";
+
+                // notify clients
+                await _reportHub.Clients.All.SendAsync("MetadataUpdated", "category");
             }
 
             return RedirectToPage();
@@ -127,12 +122,6 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
                 ModelState.Remove(key);
             }
 
-            //if (!ModelState.IsValid)
-            //{
-            //    await OnGetAsync(SearchTerm);
-            //    return Page();
-            //}
-
             var res = await _http.PutAsJsonAsync(
                 $"https://localhost:7066/api/category({UpdatedCategory.CategoryId})",
                 UpdatedCategory);
@@ -143,9 +132,12 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
             }
             else
             {
-                               TempData["Success"] = "Category updated successfully.";
+                TempData["Success"] = "Category updated successfully.";
+
+                // notify clients
+                await _reportHub.Clients.All.SendAsync("MetadataUpdated", "category");
             }
-                return RedirectToPage();
+            return RedirectToPage();
         }
 
         // DELETE
@@ -154,7 +146,14 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
             var res = await _http.DeleteAsync($"/api/category({id})");
 
             if (!res.IsSuccessStatusCode)
+            {
                 TempData["Error"] = "Category is used by articles.";
+            }
+            else
+            {
+                // notify clients
+                await _reportHub.Clients.All.SendAsync("MetadataUpdated", "category");
+            }
 
             return RedirectToPage();
         }

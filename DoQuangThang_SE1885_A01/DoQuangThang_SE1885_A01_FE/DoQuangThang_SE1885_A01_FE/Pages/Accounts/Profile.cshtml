@@ -2,59 +2,88 @@
 @model DoQuangThang_SE1885_A01_FE.Pages.Accounts.ProfileModel
 @{
 }
+
+<!-- Toast + Loader (local) -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index:1080;">
+    <div id="toastContainerProfile">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-success border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-danger border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="globalLoaderProfile" class="position-fixed top-0 start-0 w-100 h-100 d-none" style="z-index:1090; background: rgba(255,255,255,0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+        <span class="ms-2 fw-semibold">Processing…</span>
+    </div>
+</div>
+
 <div class="container mt-5">
-
-    @if (TempData["SuccessMessage"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-    @if (TempData["ErrorMessage"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    }
-
-    <div class="row">
+    <div class="row g-4">
         <div class="col-md-6">
-            <div class="card shadow mb-4">
+            <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">My Profile</h5>
                 </div>
                 <div class="card-body">
                     @if (Model.CurrentAccount != null)
                     {
-                        <div class="mb-3">
-                            <label class="fw-bold">Full Name:</label>
-                            <p class="form-control-plaintext border-bottom">@Model.CurrentAccount.AccountName</p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="fw-bold">Email:</label>
-                            <p class="form-control-plaintext border-bottom">@Model.CurrentAccount.AccountEmail</p>
-                        </div>
-                        <div class="mb-3">
-                            <label class="fw-bold">Role:</label>
-                            <p>
-                                @if (Model.CurrentAccount.AccountRole == 1)
-                                {
-                                    <span class="badge bg-danger">Staff</span>
-                                }
-                                else if (Model.CurrentAccount.AccountRole == 2)
-                                {
+                        <form method="post" asp-page-handler="UpdateProfile" id="profileForm" novalidate>
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-                                    <span class="badge bg-success">Lecturer</span>
-                                }
-                                else
-                                {
+                            <div class="mb-3">
+                                <label asp-for="ProfileInput.AccountName" class="form-label">Full Name</label>
+                                <input asp-for="ProfileInput.AccountName" class="form-control" />
+                                <span asp-validation-for="ProfileInput.AccountName" class="text-danger"></span>
+                            </div>
 
-                                    <span class="badge bg-secondary">Member</span>
-                                }
-                            </p>
-                        </div>
+                            <div class="mb-3">
+                                <label asp-for="ProfileInput.AccountEmail" class="form-label">Email</label>
+                                <input asp-for="ProfileInput.AccountEmail" class="form-control" />
+                                <span asp-validation-for="ProfileInput.AccountEmail" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="fw-bold">Role:</label>
+                                <p>
+                                    @if (Model.CurrentAccount.AccountRole == 1)
+                                    {
+                                        <span class="badge bg-secondary">Staff</span>
+                                    }
+                                    else if (Model.CurrentAccount.AccountRole == 2)
+                                    {
+                                        <span class="badge bg-primary">Lecturer</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-dark">Admin</span>
+                                    }
+                                </p>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">
+                                    <span class="spinner-border spinner-border-sm d-none" id="profileSpinner" role="status" aria-hidden="true"></span>
+                                    <span id="profileBtnText">Save Changes</span>
+                                </button>
+                            </div>
+                        </form>
                     }
                     else
                     {
@@ -65,12 +94,12 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card shadow">
+            <div class="card shadow-sm">
                 <div class="card-header bg-warning text-dark">
                     <h5 class="mb-0">Change Password</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-page-handler="ChangePassword">
+                    <form method="post" asp-page-handler="ChangePassword" id="passwordForm" novalidate>
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                         <div class="mb-3">
@@ -92,7 +121,10 @@
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Update Password</button>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="spinner-border spinner-border-sm d-none" id="pwdSpinner" role="status" aria-hidden="true"></span>
+                                <span id="pwdBtnText">Update Password</span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -102,7 +134,40 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <script>
+        // show server-toasted messages
+        (function () {
+            var container = document.getElementById('toastContainerProfile');
+            var toasts = container?.querySelectorAll('.toast') || [];
+            toasts.forEach(function (t) {
+                try { new bootstrap.Toast(t, { delay: 5000 }).show(); } catch (e) { console.warn(e); }
+            });
+        })();
+
+        function showGlobalLoaderProfile() { document.getElementById('globalLoaderProfile')?.classList.remove('d-none'); }
+        function hideGlobalLoaderProfile() { document.getElementById('globalLoaderProfile')?.classList.add('d-none'); }
+
+        // attach loader to profile forms
+        (function () {
+            var profileForm = document.getElementById('profileForm');
+            var passwordForm = document.getElementById('passwordForm');
+
+            if (profileForm) {
+                profileForm.addEventListener('submit', function () {
+                    document.getElementById('profileSpinner').classList.remove('d-none');
+                    document.getElementById('profileBtnText').textContent = 'Saving…';
+                    showGlobalLoaderProfile();
+                });
+            }
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', function () {
+                    document.getElementById('pwdSpinner').classList.remove('d-none');
+                    document.getElementById('pwdBtnText').textContent = 'Updating…';
+                    showGlobalLoaderProfile();
+                });
+            }
+
+            window.addEventListener('pageshow', function () { hideGlobalLoaderProfile(); });
+        })();
+    </script>
 }

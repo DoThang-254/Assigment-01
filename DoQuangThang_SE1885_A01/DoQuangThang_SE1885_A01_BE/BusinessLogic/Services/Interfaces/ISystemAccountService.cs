@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using BusinessLogic.Dto;
+using DataAccess.Models;
 using Presentation.ViewModels.Auth;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace BusinessLogic.Services.Interfaces
         public SystemAccount? GetAccountById(int? id);
         public void AddAccount(CreateAccountRequest account);
 
-        public void UpdateAccount(SystemAccount account);
+        public void UpdateAccount(short key , UpdateProfileRequestDto account);
 
         public bool DeleteAccount(short id);
 

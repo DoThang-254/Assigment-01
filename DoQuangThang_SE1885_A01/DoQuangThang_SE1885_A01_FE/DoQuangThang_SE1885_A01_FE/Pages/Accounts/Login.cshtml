@@ -1,28 +1,125 @@
 ﻿@page
 @model DoQuangThang_SE1885_A01_FE.Pages.Auth.LoginModel
 @{
+    ViewData["Title"] = "Login";
 }
 
+<!-- Toast + Loader -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index:1080;">
+    <div id="toastContainer"></div>
+</div>
 
-<h2>Login</h2>
-
-<form method="post">
-    <div>
-        <label>Email</label>
-        <input asp-for="Login.Email" />
-        <span asp-validation-for="Login.Email"></span>
+<div id="globalLoader" class="position-fixed top-0 start-0 w-100 h-100 d-none" style="z-index:1090; background: rgba(255,255,255,0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+        <span class="ms-2 fw-semibold">Loading…</span>
     </div>
+</div>
 
-    <div>
-        <label>Password</label>
-        <input asp-for="Login.Password" type="password" />
-        <span asp-validation-for="Login.Password"></span>
+<div class="d-flex justify-content-center align-items-center" style="min-height:60vh;">
+    <div class="card shadow-sm w-100" style="max-width:420px;">
+        <div class="card-body">
+            <h3 class="card-title mb-3 text-center"><i class="bi bi-box-arrow-in-right"></i> Sign in</h3>
+
+            @* Server-side error shown as toast on load; fallback visible message below *@
+            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+            {
+                <div class="alert alert-danger d-none" id="loginFallbackError" role="alert">@Model.ErrorMessage</div>
+            }
+
+            <form method="post" id="loginForm" novalidate>
+                <div class="mb-3">
+                    <label asp-for="Login.Email" class="form-label">Email</label>
+                    <input asp-for="Login.Email" class="form-control" />
+                    <span asp-validation-for="Login.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Login.Password" class="form-label">Password</label>
+                    <input asp-for="Login.Password" type="password" class="form-control" />
+                    <span asp-validation-for="Login.Password" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary" id="loginSubmit">
+                        <span class="spinner-border spinner-border-sm d-none" id="loginSubmitSpinner" role="status" aria-hidden="true"></span>
+                        <span id="loginSubmitText">Login</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-center small text-muted">
+            Enter your credentials to access the system.
+        </div>
     </div>
+</div>
 
-    <button type="submit">Login</button>
-</form>
+@section Scripts {
+    <script>
+        // helper: show toast
+        function showToast(type, message, autohide = true, delay = 5000) {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <p style="color:red">@Model.ErrorMessage</p>
+            // type: 'success' | 'danger' | 'info' | 'warning'
+            const bg = type === 'success' ? 'bg-success text-white' : (type === 'danger' ? 'bg-danger text-white' : (type === 'warning' ? 'bg-warning text-dark' : 'bg-info text-white'));
+            const icon = type === 'success' ? 'bi-check-circle-fill' : (type === 'danger' ? 'bi-exclamation-triangle-fill' : 'bi-info-circle-fill');
+
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center ${bg} border-0 mb-2`;
+            toast.setAttribute('role','alert');
+            toast.setAttribute('aria-live','assertive');
+            toast.setAttribute('aria-atomic','true');
+
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body"><i class="bi ${icon} me-2"></i>${message}</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>`;
+
+            container.appendChild(toast);
+            try {
+                const bs = new bootstrap.Toast(toast, { autohide: autohide, delay: delay });
+                bs.show();
+            } catch (e) {
+                console.warn(e);
+            }
+        }
+
+        // show server-side message (TempData) if exists
+        (function () {
+            var serverError = '@(Model.ErrorMessage ?? "")'.trim();
+            if (serverError) {
+                // show as toast and fallback visible alert for non-JS
+                showToast('danger', serverError);
+                var fallback = document.getElementById('loginFallbackError');
+                if (fallback) fallback.classList.remove('d-none');
+            }
+        })();
+
+        // loader helpers
+        function showGlobalLoader() { document.getElementById('globalLoader')?.classList.remove('d-none'); }
+        function hideGlobalLoader() { document.getElementById('globalLoader')?.classList.add('d-none'); }
+
+        // attach to login form
+        (function () {
+            var form = document.getElementById('loginForm');
+            var submitBtn = document.getElementById('loginSubmit');
+            var spinner = document.getElementById('loginSubmitSpinner');
+            var submitText = document.getElementById('loginSubmitText');
+
+            if (form) {
+                form.addEventListener('submit', function () {
+                    // show inline spinner + overlay
+                    if (spinner) spinner.classList.remove('d-none');
+                    if (submitText) submitText.textContent = 'Signing in…';
+                    submitBtn.disabled = true;
+                    showGlobalLoader();
+                });
+            }
+
+            // Hide loader on pageshow (back/forward)
+            window.addEventListener('pageshow', function () { hideGlobalLoader(); });
+        })();
+    </script>
 }
