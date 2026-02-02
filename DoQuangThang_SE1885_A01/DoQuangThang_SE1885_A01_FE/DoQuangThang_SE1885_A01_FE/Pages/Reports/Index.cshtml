@@ -17,6 +17,7 @@
 
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
+            <!-- SEARCH / FILTER FORM (GET) -->
             <form method="get" class="row g-3 align-items-end">
                 <div class="col-sm-5 col-md-4">
                     <label asp-for="FromDate" class="form-label small text-muted">From</label>
@@ -31,9 +32,12 @@
                         <i class="bi bi-filter me-1"></i> Apply
                     </button>
                 </div>
+            </form>
 
-                <div class="col-12 col-md-6 offset-md-6 d-flex justify-content-md-end gap-2 mt-2">
-                    <form method="post" asp-page-handler="Export" class="d-flex gap-2 align-items-center">
+            <!-- EXPORT BUTTONS: MUST NOT BE NESTED INSIDE ANOTHER <form> -->
+            <div class="row mt-2">
+                <div class="col-12 col-md-6 offset-md-6 d-flex justify-content-md-end gap-2">
+                    @* <form method="post" asp-page-handler="Export" class="d-flex gap-2 align-items-center">
                         <input type="hidden" name="fromDate" value="@(Model.FromDate?.ToString("yyyy-MM-dd") ?? "")" />
                         <input type="hidden" name="toDate" value="@(Model.ToDate?.ToString("yyyy-MM-dd") ?? "")" />
 
@@ -51,7 +55,7 @@
                                 <i class="bi bi-download"></i> CSV Summary
                             </button>
                         </div>
-                    </form>
+                    </form> *@
 
                     <form method="post" asp-page-handler="ExportXlsx" class="d-flex gap-2 align-items-center">
                         <input type="hidden" name="fromDate" value="@(Model.FromDate?.ToString("yyyy-MM-dd") ?? "")" />
@@ -73,7 +77,7 @@
                         </div>
                     </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

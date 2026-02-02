@@ -1,14 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\",
+  "WorkspaceRootPath": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\accounts\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\accounts\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\accounts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\accounts\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\reports\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -39,27 +39,27 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml",
-              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml",
-              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAAAALAAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-02T14:01:42.051Z",
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "ToolTip": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAIwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-02T15:02:54.425Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml.cs",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml.cs",
-              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Accounts\\Index.cshtml.cs",
-              "ViewState": "AgIAAJQAAAAAAAAAAADgv6sAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T13:55:40.733Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "ToolTip": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Reports\\Index.cshtml",
+              "ViewState": "AgIAABwAAAAAAAAAAAAqwCcAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-02T15:00:45.399Z",
               "EditorCaption": ""
             }
           ]

@@ -303,11 +303,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj",
+      "projectUniqueName": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj",
       "projectName": "DoQuangThang_SE1885_A01_FE",
-      "projectPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj",
+      "projectPath": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj",
       "packagesPath": "C:\\Users\\thang\\.nuget\\packages\\",
-      "outputPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\obj\\",
+      "outputPath": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\",
+  "WorkspaceRootPath": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|d:\\github.com\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\Presentation.csproj|solutionrelative:presentation\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{97BF6EE7-3A26-4819-92D9-1B31CF629337}|BusinessLogic\\BusinessLogic.csproj|d:\\.net\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\businesslogic\\services\\implementations\\systemaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{97BF6EE7-3A26-4819-92D9-1B31CF629337}|BusinessLogic\\BusinessLogic.csproj|d:\\github.com\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\businesslogic\\services\\implementations\\systemaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{97BF6EE7-3A26-4819-92D9-1B31CF629337}|BusinessLogic\\BusinessLogic.csproj|solutionrelative:businesslogic\\services\\implementations\\systemaccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -40,24 +40,23 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "SystemAccountService.cs",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
+              "DocumentMoniker": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
               "RelativeDocumentMoniker": "BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
+              "ToolTip": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
               "RelativeToolTip": "BusinessLogic\\Services\\Implementations\\SystemAccountService.cs",
               "ViewState": "AgIAABwAAAAAAAAAAAAgwCYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T14:15:02.948Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T14:15:02.948Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "accountController.cs",
-              "DocumentMoniker": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\accountController.cs",
+              "DocumentMoniker": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\accountController.cs",
               "RelativeDocumentMoniker": "Presentation\\Controllers\\accountController.cs",
-              "ToolTip": "D:\\.net\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\accountController.cs",
+              "ToolTip": "D:\\github.com\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers\\accountController.cs",
               "RelativeToolTip": "Presentation\\Controllers\\accountController.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAYwFAAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAA1wEYAAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-02T13:56:46.656Z",
               "EditorCaption": ""
