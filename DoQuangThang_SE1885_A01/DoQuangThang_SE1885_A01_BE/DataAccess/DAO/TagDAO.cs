@@ -48,6 +48,15 @@ namespace DataAccess.DAO
             return context.Tags.FirstOrDefault(t => t.TagId == tagId);
         }
 
+        // Return all NewsArticle entities that use the specified tag.
+        // Uses the many-to-many relationship (EF Core translates to a JOIN on the join table).
+        public IQueryable<NewsArticle> GetNewsArticlesByTagId(int tagId , FunewsManagementContext context)
+        {
+            return context.NewsArticles
+                .Where(n => n.Tags.Any(t => t.TagId == tagId))
+                .OrderByDescending(n => n.CreatedDate);
+        }
+
         public void AddTag(Tag tag, FunewsManagementContext context)
         {
             context.Tags.Add(tag);

@@ -39,5 +39,11 @@ namespace DataAccess.Repository
         }
 
         public short GenerateNewAccountId() => SystemAccountDAO.Instance.GenerateNewAccountId(_context);
+
+        public SystemAccount? GetLastEditorByNewsArticleId(string newsArticleId)
+        => SystemAccountDAO.Instance.GetLastEditorByNewsArticleId(newsArticleId, _context);
+
+        public bool CheckExistEmail(string email) => SystemAccountDAO.Instance.CheckExistEmail(email, _context);
+
     }
 }

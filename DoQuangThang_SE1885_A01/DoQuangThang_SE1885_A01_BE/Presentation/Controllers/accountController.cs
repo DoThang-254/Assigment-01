@@ -35,6 +35,25 @@ namespace Presentation.Controllers
             }
         }
 
+        // GET: odata/account/LastEditor/{newsArticleId}
+        [HttpGet("LastEditor/{newsArticleId}")]
+        public IActionResult GetLastEditorByNewsArticleId([FromRoute] string newsArticleId)
+        {
+            try
+            {
+                var editor = _systemAccountService.GetLastEditorByNewsArticleId(newsArticleId);
+                return Ok(editor);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         public IActionResult Post([FromBody] CreateAccountRequest newAccount)
         {

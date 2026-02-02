@@ -4,10 +4,6 @@ using DataAccess.DAO;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.Implementations
 {
@@ -60,6 +56,19 @@ namespace BusinessLogic.Services.Implementations
 
         public void UpdateCategory(CategoryUpdateRequestDto category)
         {
+            // fetch existing to compare ParentCategoryId
+            var existing = _categoryRepository.GetCategoryById(category.CategoryId);
+            if (existing == null)
+                throw new ArgumentException("Category not found.", nameof(category.CategoryId));
+
+            // service-level validation to prevent throwing from DAO for expected rules
+            bool isUsed = _categoryRepository.IsCategoryUsed(category.CategoryId);
+            if (isUsed && existing.ParentCategoryId != category.ParentCategoryId)
+            {
+                // throw an appropriate service-level exception
+                throw new InvalidOperationException("Cannot change ParentCategoryID because category is already used by articles.");
+            }
+
             var updatedCategory = new Category
             {
                 CategoryId = category.CategoryId,
@@ -71,5 +80,6 @@ namespace BusinessLogic.Services.Implementations
             _categoryRepository.UpdateCategory(updatedCategory);
         }
 
+       
     }
 }

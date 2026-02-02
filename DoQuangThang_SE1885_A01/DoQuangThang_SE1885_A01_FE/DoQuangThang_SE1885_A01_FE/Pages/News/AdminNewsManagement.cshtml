@@ -1,0 +1,88 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.News.AdminNewsManagementModel
+@{
+    ViewData["Title"] = "Admin News Management";
+}
+
+<div class="container-fluid px-4">
+    <h2 class="mb-4">News Management</h2>
+
+    @if (Model.NewsList == null || !Model.NewsList.Any())
+    {
+        <div class="alert alert-info">No news available.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 8%;">ID</th>
+                        <th>Title</th>
+                        <th style="width: 14%;">Category</th>
+                        <th style="width: 20%;">Created / By</th>
+                        <th style="width: 20%;">Updated By</th>
+                        <th style="width: 8%;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var n in Model.NewsList)
+                    {
+                        <tr>
+                            <td class="text-muted small">@n.NewsArticleId</td>
+                            <td>@(string.IsNullOrWhiteSpace(n.NewsTitle) ? "(no title)" : n.NewsTitle)</td>
+                            <td class="small text-muted">
+                                @(
+                                    n.Category?.CategoryName ??
+                                    (n.CategoryId.HasValue ? $"#{n.CategoryId}" : "N/A")
+                                )
+                            </td>
+                            <td class="small text-muted">
+                                @if (n.CreatedDate.HasValue)
+                                {
+                                    @n.CreatedDate.Value.ToString("yyyy-MM-dd HH:mm")
+                                }
+                                <div>
+                                    @(
+                                        n.CreatedBy?.AccountEmail
+                                        ?? n.CreatedBy?.Email
+                                        ?? n.CreatedByEmail
+                                        ?? (n.CreatedById.HasValue ? $"ID: {n.CreatedById.Value}" : "—")
+                                    )
+                                </div>
+                            </td>
+                            <td class="small text-muted">
+                                @{
+                                    // FIX: Use only properties that exist on NewsDto
+                                    var updatedEmail = n.UpdatedByEmail;
+                                }
+                                @if (!string.IsNullOrWhiteSpace(updatedEmail))
+                                {
+                                    <div>@updatedEmail</div>
+                                }
+                                else if (n.UpdatedById.HasValue)
+                                {
+                                    <div class="text-muted">ID: @n.UpdatedById</div>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">—</span>
+                                }
+                            </td>
+                            <td>
+                                @if (n.NewsStatus == true)
+                                {
+                                    <span class="badge bg-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">Inactive</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

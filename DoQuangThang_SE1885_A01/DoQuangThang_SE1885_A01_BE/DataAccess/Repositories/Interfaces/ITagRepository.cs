@@ -21,5 +21,7 @@ namespace DataAccess.Repositories.Interfaces
         bool IsTagUsed(int tagId);
 
         public int GenerateNewTagId();
+
+        IQueryable<NewsArticle> GetNewsArticlesByTagId(int tagId);
     }
 }

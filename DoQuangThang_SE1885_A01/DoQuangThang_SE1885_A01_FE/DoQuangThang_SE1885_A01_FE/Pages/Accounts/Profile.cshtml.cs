@@ -65,8 +65,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Accounts
             }
 
             var errorMsg = await response.Content.ReadAsStringAsync();
-            ModelState.AddModelError(string.Empty, errorMsg);
-            TempData["ErrorMessage"] = "Failed to update profile. " + errorMsg;
+            TempData["ErrorMessage"] = "Failed to update profile. ";
 
             ProfileInput = profileInput;
             await LoadAccountProfile();
@@ -100,8 +99,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Accounts
             }
 
             var errorMsg = await response.Content.ReadAsStringAsync();
-            ModelState.AddModelError(string.Empty, errorMsg);
-            TempData["ErrorMessage"] = "Failed to change password. " + errorMsg;
+            TempData["ErrorMessage"] = "Failed to change password. ";
 
             PasswordInput = passwordInput;
             await LoadAccountProfile();

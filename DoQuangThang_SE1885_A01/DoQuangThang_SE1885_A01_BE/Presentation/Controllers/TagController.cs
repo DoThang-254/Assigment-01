@@ -42,6 +42,22 @@ namespace Presentation.Controllers
             return Ok(tag);
         }
 
+        // GET: odata/Tag(1)/NewsArticles
+        // Exposes articles that use the specified tag via the navigation property name "NewsArticles".
+        [EnableQuery]
+        public IActionResult GetNewsArticles([FromRoute] int key)
+        {
+            try
+            {
+                var articles = _tagService.GetNewsArticlesByTagId(key);
+                return Ok(articles);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         // POST: odata/Tag
         public IActionResult Post([FromBody] TagDto tag)
         {

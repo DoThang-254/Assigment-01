@@ -61,6 +61,7 @@ namespace DataAccess.DAO
 
             return query
                 .GroupBy(n => n.CategoryId)
+                .OrderByDescending(g => g.Max(n => n.CreatedDate))
                 .Select(g => new ReportDTO
                 {
                     CategoryId = g.Key,
@@ -80,6 +81,7 @@ namespace DataAccess.DAO
 
             return query
                 .GroupBy(n => n.CreatedById)
+                .OrderByDescending(g => g.Max(n => n.CreatedDate))
                 .Select(g => new ReportDTO
                 {
                     CreatedById = g.Key,
@@ -99,6 +101,7 @@ namespace DataAccess.DAO
 
             return query
                 .GroupBy(n => n.NewsStatus)
+                .OrderByDescending(g => g.Max(n => n.CreatedDate))
                 .Select(g => new ReportDTO
                 {
                     NewsStatus = g.Key,

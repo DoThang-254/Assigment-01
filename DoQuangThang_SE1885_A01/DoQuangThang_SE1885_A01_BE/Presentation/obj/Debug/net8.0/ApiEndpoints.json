@@ -1300,6 +1300,40 @@
   },
   {
     "ContainingType": "Presentation.Controllers.tagController",
+    "Method": "GetNewsArticles",
+    "RelativePath": "api/tag({key})/NewsArticles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "api/tag({key})/NewsArticles"
+  },
+  {
+    "ContainingType": "Presentation.Controllers.tagController",
+    "Method": "GetNewsArticles",
+    "RelativePath": "api/tag({key})/NewsArticles/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "api/tag({key})/NewsArticles/$count"
+  },
+  {
+    "ContainingType": "Presentation.Controllers.tagController",
     "Method": "Get",
     "RelativePath": "api/tag/{key}",
     "HttpMethod": "GET",
@@ -1353,6 +1387,40 @@
     ],
     "ReturnTypes": [],
     "EndpointName": "api/tag/{key}"
+  },
+  {
+    "ContainingType": "Presentation.Controllers.tagController",
+    "Method": "GetNewsArticles",
+    "RelativePath": "api/tag/{key}/NewsArticles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "api/tag/{key}/NewsArticles"
+  },
+  {
+    "ContainingType": "Presentation.Controllers.tagController",
+    "Method": "GetNewsArticles",
+    "RelativePath": "api/tag/{key}/NewsArticles/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "api/tag/{key}/NewsArticles/$count"
   },
   {
     "ContainingType": "Presentation.Controllers.tagController",
@@ -1424,5 +1492,21 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Presentation.Controllers.accountController",
+    "Method": "GetLastEditorByNewsArticleId",
+    "RelativePath": "LastEditor/{newsArticleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newsArticleId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

@@ -2,6 +2,8 @@
 @model DoQuangThang_SE1885_A01_FE.Pages.Auth.IndexModel
 @{
     ViewData["Title"] = "Account Management";
+    // Ensure OpenSaveModalOnLoad is defined and set to false if not present to avoid CS1061 and TS1109
+    var openSaveModalOnLoad = (Model.GetType().GetProperty("OpenSaveModalOnLoad") != null) ? (bool)Model.GetType().GetProperty("OpenSaveModalOnLoad").GetValue(Model) : false;
 }
 
 <!-- Toast container (accessible) -->
@@ -66,7 +68,6 @@
                     <option value="">-- All Roles --</option>
                     <option value="1" selected="@(Model.Role == 1)">Staff</option>
                     <option value="2" selected="@(Model.Role == 2)">Lecturer</option>
-                    <option value="3" selected="@(Model.Role == 3)">Admin</option>
                 </select>
             </div>
 
@@ -174,16 +175,20 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @* Validation summary to show ModelState errors (server-side) *@
+
                     <input type="hidden" asp-for="AccountInput.AccountId" id="modalAccountId" />
 
                     <div class="mb-3">
                         <label class="form-label">Email</label>
                         <input type="email" class="form-control" asp-for="AccountInput.AccountEmail" id="modalAccountEmail" required />
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountEmail"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>
                         <input type="text" class="form-control" asp-for="AccountInput.AccountName" id="modalAccountName" required />
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountName"></span>
                     </div>
 
                     <div class="mb-3">
@@ -191,20 +196,22 @@
                         <select class="form-select" asp-for="AccountInput.AccountRole" id="modalAccountRole" required>
                             <option value="1">Staff</option>
                             <option value="2">Lecturer</option>
-                            <option value="3">Admin</option>
                         </select>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountRole"></span>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" id="lblPassword">Password</label>
                         <input type="password" class="form-control" asp-for="AccountInput.AccountPassword" id="modalPassword" placeholder="Enter password..." />
                         <small class="text-muted" id="passwordHint" style="display:none;">Leave blank to keep current password.</small>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountPassword"></span>
                     </div>
 
                     <div class="mb-3" id="adminAuthContainer" style="display:none; background-color: #fff3cd; padding: 10px; border-radius: 5px; border: 1px dashed #ffc107;">
                         <label class="form-label text-danger fw-bold">Admin Confirmation Required</label>
                         <input type="password" class="form-control" asp-for="AccountInput.AdminVerifyPassword" id="modalAdminPassword" placeholder="Enter YOUR admin password" />
                         <small class="text-danger">You must verify your identity to change user's password.</small>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AdminVerifyPassword"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -240,6 +247,9 @@
 </div>
 
 @section Scripts {
+    @* Ensure unobtrusive validation scripts are available so field errors appear *@
+    <partial name="_ValidationScriptsPartial" />
+
     <script>
         // show any toasts present in the toast container
         (function () {
@@ -269,7 +279,12 @@
             var forms = document.querySelectorAll('form[data-show-loader="true"]');
             forms.forEach(function (f) {
                 f.addEventListener('submit', function (e) {
-                    // let normal server-side validation run; just show loader immediately
+                    // Check HTML5 validity first; if invalid, don't show loader
+                    if (typeof f.checkValidity === 'function' && !f.checkValidity()) {
+                        // Let browser show native validation / unobtrusive messages
+                        return;
+                    }
+                    // Show loader only if the form is valid (client-side)  
                     showGlobalLoader();
                     // allow submit to continue
                 });
@@ -317,7 +332,8 @@
                 passwordInput.oninput = null;
             } else {
                 modalTitle.innerText = "Update Account";
-                document.getElementById('modalAccountEmail').readOnly = true;
+                // allow editing email and name for updates
+                document.getElementById('modalAccountEmail').readOnly = false;
                 passwordInput.required = false;
                 lblPassword.innerText = "New Password (Optional)";
                 passwordHint.style.display = 'block';
@@ -353,5 +369,20 @@
             var myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
             myModal.show();
         }
+
+        // If server-side validation failed for the save form, the model will set
+        // OpenSaveModalOnLoad = true and the AccountInput fields are already bound,
+        // so simply show the modal on page load to surface validation messages.
+        (function () {
+            var shouldOpen = @(openSaveModalOnLoad.ToString().ToLower());
+            if (shouldOpen) {
+                try {
+                    var myModal = new bootstrap.Modal(document.getElementById('saveModal'));
+                    myModal.show();
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+        })();
     </script>
 }

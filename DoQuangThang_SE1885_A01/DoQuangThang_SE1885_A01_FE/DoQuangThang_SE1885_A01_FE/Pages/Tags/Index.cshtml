@@ -80,9 +80,9 @@
                     <thead class="table-dark">
                         <tr>
                             <th style="width: 10%;">ID</th>
-                            <th style="width: 30%;">Tag Name</th>
-                            <th style="width: 40%;">Note</th>
-                            <th style="width: 20%;" class="text-center">Actions</th>
+                            <th style="width: 25%;">Tag Name</th>
+                            <th style="width: 35%;">Note</th>
+                            <th style="width: 30%;" class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,6 +98,11 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
+                                            <button class="btn btn-sm btn-outline-info"
+                                                    onclick="openArticles(@tag.TagId, '@tag.TagName')">
+                                                View Articles
+                                            </button>
+
                                             <button class="btn btn-sm btn-outline-warning"
                                                     onclick="openEdit(@tag.TagId, '@tag.TagName', '@tag.Note')">
                                                 Edit
@@ -206,6 +211,39 @@
     </div>
 </div>
 
+<!-- New: Articles modal -->
+<div class="modal fade" id="articlesModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title" id="articlesModalTitle">Articles</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 12%;">ID</th>
+                                <th>Title</th>
+                                <th style="width: 20%;">Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="articlesTableBody">
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-3">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         // 1. Loader Logic
@@ -265,6 +303,78 @@
 
             var modal = new bootstrap.Modal(document.getElementById('editModal'));
             modal.show();
+        }
+
+        // 5a. Small helper to escape html (prevent XSS when inserting text)
+        function escapeHtml(unsafe) {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // 5. View articles by tag (fetch via page handler and show in modal)
+        async function openArticles(tagId, tagName) {
+            showGlobalLoaderCategories();
+            try {
+                // Call the same Razor Page handler to proxy the backend call.
+                // This avoids URL/encoding/routing differences (Swagger vs Postman).
+                const url = window.location.pathname + '?handler=Articles&tagId=' + encodeURIComponent(tagId);
+                const res = await fetch(url, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!res.ok) {
+                    const text = await res.text();
+                    throw new Error(text || 'Server returned ' + res.status);
+                }
+
+                const data = await res.json();
+                const tbody = document.getElementById('articlesTableBody');
+                tbody.innerHTML = '';
+
+                if (!data || (Array.isArray(data) && data.length === 0)) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-3">No articles found for this tag.</td></tr>`;
+                } else {
+                    // Support different shapes returned by API by checking common field names
+                    const arr = Array.isArray(data) ? data : (data.value || []);
+                    if (!arr || arr.length === 0) {
+                        tbody.innerHTML = `<tr><td colspan="3" class="text-center text-muted py-3">No articles found for this tag.</td></tr>`;
+                    } else {
+                        for (const item of arr) {
+                            const title = item.title ?? item.Title ?? item.newsTitle ?? item.NewsTitle ?? 'Untitled';
+                            const createdRaw = item.createdDate ?? item.CreatedDate ?? item.publishedAt ?? item.PublishedAt ?? '';
+                            let createdText = '';
+                            if (createdRaw) {
+                                const d = new Date(createdRaw);
+                                if (!isNaN(d)) createdText = d.toLocaleString();
+                                else createdText = String(createdRaw);
+                            }
+                            const idVal = item.NewsArticleId ?? item.NewsId ?? item.id ?? item.Id ?? '';
+
+                            tbody.insertAdjacentHTML('beforeend',
+                                `<tr>
+                                    <td>${escapeHtml(idVal)}</td>
+                                    <td>${escapeHtml(title)}</td>
+                                    <td>${escapeHtml(createdText)}</td>
+                                </tr>`);
+                        }
+                    }
+                }
+
+                document.getElementById('articlesModalTitle').textContent = `Articles for: ${tagName}`;
+                const modal = new bootstrap.Modal(document.getElementById('articlesModal'));
+                modal.show();
+            } catch (err) {
+                console.error(err);
+                alert('Failed to load articles: ' + (err.message || err));
+            } finally {
+                hideGlobalLoaderCategories();
+            }
         }
     </script>
 

@@ -80,7 +80,7 @@ namespace Presentation.Controllers
                 _categoryService.UpdateCategory(category);
                 return Ok(category);
             }
-            catch(KeyNotFoundException)
+            catch
             {
                 return BadRequest();
             }

@@ -43,6 +43,16 @@ namespace DataAccess.DAO
             return context.SystemAccounts.FirstOrDefault(acc => acc.AccountEmail == email);
         }
 
+        // New: efficient existence check for email (does not return the entity)
+        public bool CheckExistEmail(string email, FunewsManagementContext context)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return false;
+            }
+
+            return context.SystemAccounts.Any(acc => acc.AccountEmail == email);
+        }
 
         public void AddAccount(SystemAccount account, FunewsManagementContext context)
         {
@@ -100,5 +110,16 @@ namespace DataAccess.DAO
             return (short)(maxId + 1);
         }
 
+        // Returns the SystemAccount who last edited the specified news article (UpdatedById join).
+        // If the article has no UpdatedById or account not found, returns null.
+        public SystemAccount? GetLastEditorByNewsArticleId(string newsArticleId , FunewsManagementContext context)
+        {
+
+            var query = from acc in context.SystemAccounts
+                        join na in context.NewsArticles on acc.AccountId equals na.UpdatedById
+                        select acc;
+
+            return query.FirstOrDefault();
+        }
     }
 }

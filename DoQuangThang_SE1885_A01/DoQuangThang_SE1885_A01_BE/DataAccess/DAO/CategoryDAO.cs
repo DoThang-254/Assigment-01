@@ -1,9 +1,6 @@
 ﻿using DataAccess.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.DAO
 {
@@ -64,6 +61,7 @@ namespace DataAccess.DAO
 
             if (isUsed && category.ParentCategoryId != updated.ParentCategoryId)
             {
+                // throw a specific exception type from DataAccess (defense-in-depth)
                 throw new Exception(
                     "Cannot change ParentCategoryID because category is already used by articles."
                 );
@@ -75,6 +73,12 @@ namespace DataAccess.DAO
             category.IsActive = updated.IsActive ?? false;
 
             context.SaveChanges();
+        }
+
+        // New helper: check usage (used by service layer)
+        public bool IsCategoryUsed(FunewsManagementContext context, int? categoryId)
+        {
+            return context.NewsArticles.Any(n => n.CategoryId == categoryId);
         }
 
         // =====================================================

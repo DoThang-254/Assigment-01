@@ -23,5 +23,9 @@ namespace DataAccess.Repositories.Interfaces
         public void DeleteAccount(short id);
 
         public short GenerateNewAccountId();
+        SystemAccount? GetLastEditorByNewsArticleId(string newsArticleId);
+
+        public bool CheckExistEmail(string email);
+
     }
 }

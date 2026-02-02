@@ -31,8 +31,9 @@ namespace BusinessLogic.Services.Implementations
         }
         public void AddAccount(CreateAccountRequest newAccount)
         {
-            var exist = _systemAccountRepository.GetAccountByEmail(newAccount.AccountEmail);
-            if (exist != null)
+            // Use new lightweight check instead of retrieving the whole entity
+            var exist = _systemAccountRepository.CheckExistEmail(newAccount.AccountEmail);
+            if (exist)
             {
                 throw new Exception("Email already exists!");
             }
@@ -92,6 +93,11 @@ namespace BusinessLogic.Services.Implementations
             {
                 throw new Exception("Account not found");
             }
+            var exist = _systemAccountRepository.CheckExistEmail(account.AccountEmail);
+            if (exist)
+            {
+                throw new Exception("Email already exists!");
+            }
             existingAccount.AccountName = account.AccountName ?? existingAccount.AccountName;
             existingAccount.AccountEmail = account.AccountEmail ?? existingAccount.AccountEmail;
             _systemAccountRepository.UpdateAccount(existingAccount);
@@ -148,6 +154,20 @@ namespace BusinessLogic.Services.Implementations
 
             targetAccount.AccountPassword = newPassword;
             _systemAccountRepository.UpdateAccount(targetAccount);
+        }
+
+        public SystemAccount? GetLastEditorByNewsArticleId(string newsArticleId)
+        {
+            if(string.IsNullOrEmpty(newsArticleId))
+            {
+                throw new ArgumentException("News article ID cannot be null or empty", nameof(newsArticleId));
+            }
+            var res = _systemAccountRepository.GetLastEditorByNewsArticleId(newsArticleId);
+            if (res == null)
+            {
+                throw new Exception("News article not found");
+            }
+            return res;
         }
     }
 }

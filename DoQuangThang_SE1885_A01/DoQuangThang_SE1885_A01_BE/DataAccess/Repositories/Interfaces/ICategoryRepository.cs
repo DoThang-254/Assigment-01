@@ -1,10 +1,6 @@
 ﻿using DataAccess.DAO;
 using DataAccess.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Interfaces
 {
@@ -22,5 +18,8 @@ namespace DataAccess.Repositories.Interfaces
         IQueryable<CategoryArticleCount> GetCategoryArticleCounts();
 
         short GenerateId();
+
+        // new method to allow service-level validation
+        bool IsCategoryUsed(int? id);
     }
 }

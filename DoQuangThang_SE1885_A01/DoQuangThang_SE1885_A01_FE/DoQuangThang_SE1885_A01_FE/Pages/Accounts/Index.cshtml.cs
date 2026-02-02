@@ -4,6 +4,7 @@ using DoQuangThang_SE1885_A01_FE.Pages.Accounts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net.Http.Json; // Cần thêm namespace này cho PostAsJsonAsync
+using System.Text;
 using System.Text.Json;
 
 namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
@@ -12,11 +13,13 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IConfiguration _configuration; 
+        private readonly JsonSerializerOptions _jsonOptions;
 
         public IndexModel(IHttpClientFactory httpClientFactory, IConfiguration configuration)
-        {
+        {   
             _httpClientFactory = httpClientFactory;
             _configuration = configuration;
+            _jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
         [BindProperty]
@@ -97,7 +100,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
                 }
                 else
                 {
-                    TempData["ErrorMessage"] = "Failed to create account. " + await response.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = "Failed to create account. ";
                 }
             }
             else
@@ -132,7 +135,6 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
                         resetRequest
                     );
 
-
                     if (response.IsSuccessStatusCode)
                     {
                         TempData["SuccessMessage"] = "Password updated successfully!";
@@ -141,10 +143,33 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
                     {
                         TempData["ErrorMessage"] = "Failed to update password.";
                     }
+
+                    return RedirectToPage();
+                }
+
+                // --- NEW: update account info (name, email, role) via PUT /api/account(key)
+                var updatePayload = new
+                {
+                    AccountName = AccountInput.AccountName,
+                    AccountEmail = AccountInput.AccountEmail,
+                    AccountRole = AccountInput.AccountRole
+                };
+
+                var json = JsonSerializer.Serialize(updatePayload, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var putResponse = await client.PutAsync($"api/account({AccountInput.AccountId})", content);
+
+                if (putResponse.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = "Account updated successfully.";
                 }
                 else
                 {
-                    TempData["SuccessMessage"] = "Info updated (Simulation only - API endpoint missing for Info Update).";
+                    var err = await putResponse.Content.ReadAsStringAsync();
+                    TempData["ErrorMessage"] = string.IsNullOrWhiteSpace(err)
+                        ? "Failed to update account."
+                        : $"Failed to update account.";
                 }
             }
 
@@ -167,7 +192,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
                 TempData["ErrorMessage"] =
                     string.IsNullOrWhiteSpace(errorMsg)
                         ? "Cannot delete account."
-                        : errorMsg;
+                        : "Something went wrong!";
             }
 
             return RedirectToPage();
@@ -177,11 +202,11 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
         private string BuildKeywordFilter(string keyword)
         {
             keyword = keyword.Trim().ToLower();
-            string filter = $"(contains(tolower(AccountName),'{keyword}') or contains(tolower(AccountEmail),'{keyword}')";
+            string filter = $"(contains(tolower(AccountName),'{keyword}') or contains(tolower(AccountEmail),'{keyword}'))";
             if (keyword == "staff") filter += " or AccountRole eq 1";
             else if (keyword == "lecturer") filter += " or AccountRole eq 2";
             else if (int.TryParse(keyword, out int role)) filter += $" or AccountRole eq {role}";
-            filter += ")";
+            filter += ")"; 
             return filter;
         }
 

@@ -1,11 +1,7 @@
 ﻿using DataAccess.DAO;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Implementations
 {
@@ -32,5 +28,8 @@ namespace DataAccess.Repositories.Implementations
         public void UpdateCategory(Category category) => CategoryDAO.Instance.Update(_context, category);
 
         public short GenerateId() => CategoryDAO.Instance.GenerateNewCategoryId(_context);
+
+        // new: expose usage check
+        public bool IsCategoryUsed(int? id) => CategoryDAO.Instance.IsCategoryUsed(_context, id);
     }
 }

@@ -1647,6 +1647,28 @@
         }
       }
     },
+    "/LastEditor/{newsArticleId}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "name": "newsArticleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -5483,6 +5505,102 @@
           "tag"
         ],
         "operationId": "api/tag/{key}",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tag({key})/NewsArticles": {
+      "get": {
+        "tags": [
+          "tag"
+        ],
+        "operationId": "api/tag({key})/NewsArticles",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tag/{key}/NewsArticles": {
+      "get": {
+        "tags": [
+          "tag"
+        ],
+        "operationId": "api/tag/{key}/NewsArticles",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tag({key})/NewsArticles/$count": {
+      "get": {
+        "tags": [
+          "tag"
+        ],
+        "operationId": "api/tag({key})/NewsArticles/$count",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/tag/{key}/NewsArticles/$count": {
+      "get": {
+        "tags": [
+          "tag"
+        ],
+        "operationId": "api/tag/{key}/NewsArticles/$count",
         "parameters": [
           {
             "name": "key",

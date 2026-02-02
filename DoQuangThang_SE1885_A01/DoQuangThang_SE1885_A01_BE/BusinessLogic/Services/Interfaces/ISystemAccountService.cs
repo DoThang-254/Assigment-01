@@ -24,5 +24,7 @@ namespace BusinessLogic.Services.Interfaces
 
         public bool DeleteAccount(short id);
 
+        SystemAccount? GetLastEditorByNewsArticleId(string newsArticleId);
+
     }
 }

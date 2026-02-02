@@ -19,5 +19,7 @@ namespace BusinessLogic.Services.Interfaces
         void AddTag(TagDto tag);
         void UpdateTag(TagUpdateRequestDto tag);
 
+        IQueryable<NewsArticle> GetNewsArticlesByTagId(int tagId);
+
     }
 }

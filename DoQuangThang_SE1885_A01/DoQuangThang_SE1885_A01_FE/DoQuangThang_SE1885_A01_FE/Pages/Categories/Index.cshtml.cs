@@ -153,6 +153,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Categories
             {
                 // notify clients
                 await _reportHub.Clients.All.SendAsync("MetadataUpdated", "category");
+                TempData["Success"] = "Category is deleted.";
             }
 
             return RedirectToPage();

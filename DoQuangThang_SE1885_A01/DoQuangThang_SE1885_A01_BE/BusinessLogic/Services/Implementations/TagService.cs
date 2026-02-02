@@ -69,6 +69,14 @@ namespace BusinessLogic.Services.Implementations
             return _tagRepository.GetByIds(ids);
         }
 
+        public IQueryable<NewsArticle> GetNewsArticlesByTagId(int tagId)
+        {
+            var res = _tagRepository.GetNewsArticlesByTagId(tagId);
+            if(res == null)
+                throw new Exception("Tag not found.");
+            return res;
+        }
+
         // Alias cho GetByIds (nếu bạn đang dùng chỗ khác)
         public List<Tag> GetTagsByIds(List<int> ids)
         {

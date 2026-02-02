@@ -76,6 +76,34 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Tags
             }
         }
 
+        // New page handler: proxy articles list for a tag.
+        // Called via GET on the same page: ?handler=Articles&tagId=123
+        public async Task<IActionResult> OnGetArticlesAsync(int tagId)
+        {
+            var client = _httpClientFactory.CreateClient("NewsAPI");
+
+            try
+            {
+                // Use the same route your backend expects (OData-style)
+                var response = await client.GetAsync($"api/tag({tagId})/NewsArticles");
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Return the backend status and message so client can show it
+                    return StatusCode((int)response.StatusCode, content);
+                }
+
+                // Return raw JSON from backend (application/json)
+                return Content(content, "application/json");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 
 
         public async Task<IActionResult> OnPostCreateAsync()
