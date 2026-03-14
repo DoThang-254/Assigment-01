@@ -1,0 +1,1 @@
+{"@odata.context":"https://localhost:7066/api/$metadata#account/$entity","AccountId":6,"AccountName":"thang","AccountEmail":"thang@gmail.com","AccountRole":1,"AccountPassword":"111"}

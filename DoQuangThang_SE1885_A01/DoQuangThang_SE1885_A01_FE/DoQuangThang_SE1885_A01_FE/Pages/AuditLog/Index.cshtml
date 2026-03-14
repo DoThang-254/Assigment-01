@@ -1,0 +1,119 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.AuditLog.IndexModel
+@{
+    ViewData["Title"] = "System Audit Logs";
+}
+
+<div class="container mt-4">
+    <h2>System Audit Logs</h2>
+
+    <form method="get" class="row g-3 mb-4 border p-3 bg-light rounded">
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="SearchEmail"
+                   value="@Model.SearchEmail" placeholder="Search by User Email...">
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="SearchEntity"
+                   value="@Model.SearchEntity" placeholder="Search by Entity Name (NewsArticle, Category)...">
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="/AuditLog" class="btn btn-secondary">Reset</a>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Table Name</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.AuditLogs != null && Model.AuditLogs.Any())
+            {
+                foreach (var log in Model.AuditLogs)
+                {
+                    <tr>
+                        <td>@log.Timestamp.ToLocalTime().ToString("dd/MM/yyyy HH:mm:ss")</td>
+                        <td>@log.UserId</td>
+                        <td>
+                            @if (log.Action == "Added")
+                            {
+                                <span class="badge bg-success">Added</span>
+                            }
+                            else if (log.Action == "Modified")
+                            {
+
+                                <span class="badge bg-warning text-dark">Modified</span>
+                            }
+                            else
+                            {
+
+                                <span class="badge bg-danger">Deleted</span>
+                            }
+                        </td>
+                        <td>@log.TableName</td>
+                        <td>
+                            <button class="btn btn-sm btn-info"
+                                    onclick="showDetails('@log.OldValues', '@log.NewValues')">
+                                View Data
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" class="text-center">No data found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Change Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Old Values</h6>
+                        <pre id="oldData" class="bg-light p-2 border" style="max-height: 300px; overflow:auto;"></pre>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>New Values</h6>
+                        <pre id="newData" class="bg-light p-2 border" style="max-height: 300px; overflow:auto;"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showDetails(oldVal, newVal) {
+            // Format JSON nicely
+            try {
+                if (oldVal) oldVal = JSON.stringify(JSON.parse(oldVal), null, 4);
+                if (newVal) newVal = JSON.stringify(JSON.parse(newVal), null, 4);
+            } catch (e) { console.error(e); }
+
+            document.getElementById('oldData').textContent = oldVal || "None (NULL)";
+            document.getElementById('newData').textContent = newVal || "None (NULL)";
+
+            // Show modal (Bootstrap 5)
+            var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+            myModal.show();
+        }
+    </script>
+}

@@ -1,0 +1,19 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "Presentation\\CoreAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "AnalyticsAPI\\AnalyticsAPI.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "AIAPI\\AIAPI.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

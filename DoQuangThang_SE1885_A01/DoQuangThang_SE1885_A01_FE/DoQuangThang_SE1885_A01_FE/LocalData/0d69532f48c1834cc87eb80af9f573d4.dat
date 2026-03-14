@@ -1,0 +1,1 @@
+{"@odata.context":"https://localhost:7066/api/$metadata#tag","@odata.count":10,"value":[{"TagId":1,"TagName":"Education","Note":"Education Noteb"},{"TagId":2,"TagName":"Technology","Note":"Technology Note"},{"TagId":3,"TagName":"Research","Note":"Research Note"}]}

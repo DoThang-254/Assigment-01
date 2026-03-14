@@ -1,0 +1,388 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.Auth.IndexModel
+@{
+    ViewData["Title"] = "Account Management";
+    // Ensure OpenSaveModalOnLoad is defined and set to false if not present to avoid CS1061 and TS1109
+    var openSaveModalOnLoad = (Model.GetType().GetProperty("OpenSaveModalOnLoad") != null) ? (bool)Model.GetType().GetProperty("OpenSaveModalOnLoad").GetValue(Model) : false;
+}
+
+<!-- Toast container (accessible) -->
+<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-3" style="z-index:1080;">
+    <div id="toastContainer">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-success border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        @TempData["SuccessMessage"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="toast align-items-center text-white bg-danger border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        @TempData["ErrorMessage"]
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Global loading overlay -->
+<div id="globalLoader" class="position-fixed top-0 start-0 w-100 h-100 d-none" style="z-index:1090; background: rgba(255,255,255,0.6);">
+    <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+        <span class="ms-2 fw-semibold">Loading…</span>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Accounts</h2>
+    <button class="btn btn-success" onclick="openSaveModal(0, '', '', 1)" aria-label="Create new account">
+        <i class="bi bi-plus-circle me-1"></i> Create New
+    </button>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form method="get" class="row gy-2 gx-2 align-items-end" style="max-width:100%;" data-show-loader="false">
+            <div class="col-md-6">
+                <label class="form-label visually-hidden" for="keyword">Search</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input id="keyword" type="text" name="keyword" value="@Model.Keyword" class="form-control" placeholder="Search name, email or role..." />
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label visually-hidden" for="role">Role</label>
+                <select id="role" name="role" class="form-select" aria-label="Filter by role">
+                    <option value="">-- All Roles --</option>
+                    <option value="1" selected="@(Model.Role == 1)">Staff</option>
+                    <option value="2" selected="@(Model.Role == 2)">Lecturer</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 d-flex gap-2">
+                <button class="btn btn-primary w-100" type="submit"><i class="bi bi-funnel"></i> Filter</button>
+                <a asp-page="/Auth/Index" class="btn btn-outline-secondary w-100"><i class="bi bi-arrow-counterclockwise"></i> Clear</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:5%;">Id</th>
+                    <th style="width:30%;">Email</th>
+                    <th style="width:30%;">Name</th>
+                    <th style="width:15%;">Role</th>
+                    <th style="width:20%;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Accounts != null && Model.Accounts.Any())
+                {
+                    @foreach (var item in Model.Accounts)
+                    {
+                        <tr>
+                            <td class="align-middle">@item.AccountId</td>
+                            <td class="align-middle">@item.AccountEmail</td>
+                            <td class="align-middle">@item.AccountName</td>
+                            <td class="align-middle">
+                                @switch (item.AccountRole)
+                                {
+                                    case 1:
+                                        <span class="badge bg-success text-dark">Staff</span>;
+                                        break;
+                                    case 2:
+                                        <span class="badge bg-primary">Lecturer</span>;
+                                        break;
+                                    case 3:
+                                        <span class="badge bg-dark">Admin</span>;
+                                        break;
+                                    default:
+                                        <span class="badge bg-secondary">Unknown</span>;
+                                        break;
+                                }
+                            </td>
+                            <td class="align-middle">
+                                @if (item.AccountId != 0)
+                                {
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-warning" title="Edit" onclick="openSaveModal(@item.AccountId, '@item.AccountName', '@item.AccountEmail', @item.AccountRole)">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-danger" title="Delete" onclick="openDeleteModal(@item.AccountId, '@item.AccountName')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">System Admin</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">Nothing to display</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (Model.TotalCount > Model.PageSize)
+    {
+        int totalPages = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+        <div class="card-footer d-flex justify-content-center">
+            <nav aria-label="Account list pagination">
+                <ul class="pagination mb-0">
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == Model.PageIndex ? "active" : "")">
+                            <a class="page-link show-loader-on-click" asp-page="./Index" asp-route-PageIndex="@i" asp-route-keyword="@Model.Keyword" asp-route-role="@Model.Role">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    }
+</div>
+
+<!-- Save Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" aria-labelledby="saveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="SaveAccount" novalidate data-show-loader="true">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="saveModalLabel">Account Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @* Validation summary to show ModelState errors (server-side) *@
+
+                    <input type="hidden" asp-for="AccountInput.AccountId" id="modalAccountId" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" asp-for="AccountInput.AccountEmail" id="modalAccountEmail" required />
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountEmail"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" asp-for="AccountInput.AccountName" id="modalAccountName" required />
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountName"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Role</label>
+                        <select class="form-select" asp-for="AccountInput.AccountRole" id="modalAccountRole" required>
+                            <option value="1">Staff</option>
+                            <option value="2">Lecturer</option>
+                        </select>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountRole"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" id="lblPassword">Password</label>
+                        <input type="password" class="form-control" asp-for="AccountInput.AccountPassword" id="modalPassword" placeholder="Enter password..." />
+                        <small class="text-muted" id="passwordHint" style="display:none;">Leave blank to keep current password.</small>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AccountPassword"></span>
+                    </div>
+
+                    <div class="mb-3" id="adminAuthContainer" style="display:none; background-color: #fff3cd; padding: 10px; border-radius: 5px; border: 1px dashed #ffc107;">
+                        <label class="form-label text-danger fw-bold">Admin Confirmation Required</label>
+                        <input type="password" class="form-control" asp-for="AccountInput.AdminVerifyPassword" id="modalAdminPassword" placeholder="Enter YOUR admin password" />
+                        <small class="text-danger">You must verify your identity to change user's password.</small>
+                        <span class="text-danger small" asp-validation-for="AccountInput.AdminVerifyPassword"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="DeleteAccount" data-show-loader="true">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="AccountId" id="deleteAccountId" />
+                    <p>Are you sure you want to delete account: <strong id="deleteAccountName"></strong>?</p>
+                    <p class="text-danger"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* Ensure unobtrusive validation scripts are available so field errors appear *@
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // show any toasts present in the toast container
+        (function () {
+            var toasts = document.querySelectorAll('#toastContainer .toast');
+            toasts.forEach(function (t) {
+                try {
+                    var bsToast = new bootstrap.Toast(t, { delay: 5000 });
+                    bsToast.show();
+                } catch (e) {
+                    console.warn(e);
+                }
+            });
+        })();
+
+        // Loader control
+        function showGlobalLoader() {
+            var g = document.getElementById('globalLoader');
+            if (g) g.classList.remove('d-none');
+        }
+        function hideGlobalLoader() {
+            var g = document.getElementById('globalLoader');
+            if (g) g.classList.add('d-none');
+        }
+
+        // Attach to forms that declare data-show-loader="true"
+        (function () {
+            var forms = document.querySelectorAll('form[data-show-loader="true"]');
+            forms.forEach(function (f) {
+                f.addEventListener('submit', function (e) {
+                    // Check HTML5 validity first; if invalid, don't show loader
+                    if (typeof f.checkValidity === 'function' && !f.checkValidity()) {
+                        // Let browser show native validation / unobtrusive messages
+                        return;
+                    }
+                    // Show loader only if the form is valid (client-side)  
+                    showGlobalLoader();
+                    // allow submit to continue
+                });
+            });
+
+            // Links that should show loader (pagination)
+            var links = document.querySelectorAll('.show-loader-on-click');
+            links.forEach(function (a) {
+                a.addEventListener('click', function () {
+                    showGlobalLoader();
+                });
+            });
+
+            // Hide loader on page show (in case of back/forward)
+            window.addEventListener('pageshow', function () {
+                hideGlobalLoader();
+            });
+        })();
+
+        function openSaveModal(id, name, email, role) {
+            document.getElementById('modalAccountId').value = id;
+            document.getElementById('modalAccountName').value = name;
+            document.getElementById('modalAccountEmail').value = email;
+            document.getElementById('modalAccountRole').value = role || 1;
+
+            var passwordInput = document.getElementById('modalPassword');
+            var adminPassInput = document.getElementById('modalAdminPassword');
+            var adminAuthContainer = document.getElementById('adminAuthContainer');
+
+            passwordInput.value = '';
+            adminPassInput.value = '';
+
+            var modalTitle = document.getElementById('saveModalLabel');
+            var passwordHint = document.getElementById('passwordHint');
+            var lblPassword = document.getElementById('lblPassword');
+
+            if (id === 0) {
+                modalTitle.innerText = "Create New Account";
+                document.getElementById('modalAccountEmail').readOnly = false;
+                passwordInput.required = true;
+                lblPassword.innerText = "Password (Required)";
+                passwordHint.style.display = 'none';
+                adminAuthContainer.style.display = 'none';
+                adminPassInput.required = false;
+                passwordInput.oninput = null;
+            } else {
+                modalTitle.innerText = "Update Account";
+                // allow editing email and name for updates
+                document.getElementById('modalAccountEmail').readOnly = false;
+                passwordInput.required = false;
+                lblPassword.innerText = "New Password (Optional)";
+                passwordHint.style.display = 'block';
+                adminAuthContainer.style.display = 'none';
+                adminPassInput.required = false;
+
+                passwordInput.oninput = function () {
+                    if (this.value.trim().length > 0) {
+                        adminAuthContainer.style.display = 'block';
+                        adminPassInput.required = true;
+                    } else {
+                        adminAuthContainer.style.display = 'none';
+                        adminPassInput.required = false;
+                    }
+                };
+            }
+
+            var myModal = new bootstrap.Modal(document.getElementById('saveModal'));
+            myModal.show();
+
+            setTimeout(function () {
+                if (id === 0) {
+                    document.getElementById('modalAccountEmail').focus();
+                } else {
+                    document.getElementById('modalPassword').focus();
+                }
+            }, 200);
+        }
+
+        function openDeleteModal(id, name) {
+            document.getElementById('deleteAccountId').value = id;
+            document.getElementById('deleteAccountName').innerText = name;
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            myModal.show();
+        }
+
+        // If server-side validation failed for the save form, the model will set
+        // OpenSaveModalOnLoad = true and the AccountInput fields are already bound,
+        // so simply show the modal on page load to surface validation messages.
+        (function () {
+            var shouldOpen = @(openSaveModalOnLoad.ToString().ToLower());
+            if (shouldOpen) {
+                try {
+                    var myModal = new bootstrap.Modal(document.getElementById('saveModal'));
+                    myModal.show();
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+        })();
+    </script>
+}

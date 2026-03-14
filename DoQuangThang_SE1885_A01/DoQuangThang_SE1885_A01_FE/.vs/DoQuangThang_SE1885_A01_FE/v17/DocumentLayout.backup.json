@@ -1,0 +1,138 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\news\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\news\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|d:\\github.com\\doquangthang_se1885_a01\\doquangthang_se1885_a01_fe\\doquangthang_se1885_a01_fe\\pages\\news\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{088792FC-E565-457B-9C34-A094895AF9BB}|DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE.csproj|solutionrelative:doquangthang_se1885_a01_fe\\pages\\news\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:10:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:11:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:12:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Program.cs",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Program.cs",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Program.cs",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Program.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-03T08:57:01.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-03T06:04:28.676Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml.cs",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-26T06:43:00.602Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\appsettings.json",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\appsettings.json",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\appsettings.json",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-26T06:02:36.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml",
+              "ViewState": "AgIAAEICAAAAAAAAAAAmwGMCAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-02-26T05:52:04.309Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml.cs",
+              "ToolTip": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml.cs",
+              "RelativeToolTip": "DoQuangThang_SE1885_A01_FE\\Pages\\News\\Index.cshtml.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAF4AAABQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-26T05:06:54.214Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,299 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<h2 class="mb-3">📰 News Search</h2>
+
+<!-- ================= SEARCH & FILTER FORM ================= -->
+<form method="get" class="border p-3 mb-4 rounded bg-light">
+
+    <div class="row g-3">
+        <!-- Keyword -->
+        <div class="col-md-4">
+            <label class="form-label">Keyword</label>
+            <input type="text" class="form-control"
+                   name="Keyword"
+                   value="@Model.Keyword"
+                   placeholder="Title, Headline, Content" />
+        </div>
+
+        <!-- Category -->
+        <div class="col-md-3">
+            <label class="form-label">Category</label>
+            <select name="CategoryName" class="form-select">
+                <option value="">-- All Categories --</option>
+                @foreach (var tag in Model.Categories)
+                {
+                    <option value="@tag.CategoryName"
+                            selected="@(Model.CategoryName == tag.CategoryName)">
+                        @tag.CategoryName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- Tag -->
+        <div class="col-md-3">
+            <label class="form-label">Tag</label>
+            <select name="TagName" class="form-select">
+                <option value="">-- All Tags --</option>
+                @foreach (var tag in Model.AllTags)
+                {
+                    <option value="@tag.TagName"
+                            selected="@(Model.TagName == tag.TagName)">
+                        @tag.TagName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <!-- CreatedByID -->
+        <div class="col-md-2">
+            <label class="form-label">Created By</label>
+            <select name="AuthorId" class="form-select">
+                <option value="">-- All Authors --</option>
+                @foreach (var author in Model.Authors)
+                {
+                    <option value="@author.AuthorId"
+                            selected="@(Model.AuthorId == author.AuthorId)">
+                        @author.AuthorName
+                    </option>
+                }
+            </select>
+        </div>
+
+
+        <!-- Start Date -->
+        <div class="col-md-3">
+            <label class="form-label">From Date</label>
+            <input type="date" class="form-control"
+                   name="StartDate"
+                   value="@(Model.StartDate?.ToString("yyyy-MM-dd"))" />
+        </div>
+
+        <!-- End Date -->
+        <div class="col-md-3">
+            <label class="form-label">To Date</label>
+            <input type="date" class="form-control"
+                   name="EndDate"
+                   value="@(Model.EndDate?.ToString("yyyy-MM-dd"))" />
+        </div>
+
+        <!-- Sort -->
+        <div class="col-md-3">
+            <label class="form-label">Sort By</label>
+            <select name="SortBy" class="form-select">
+                <option value="CreatedDate desc" selected="@(Model.SortBy == "CreatedDate desc")">
+                    Newest
+                </option>
+                <option value="CreatedDate asc" selected="@(Model.SortBy == "CreatedDate asc")">
+                    Oldest
+                </option>
+                <option value="NewsTitle asc" selected="@(Model.SortBy == "NewsTitle asc")">
+                    Title A → Z
+                </option>
+                <option value="NewsTitle desc" selected="@(Model.SortBy == "NewsTitle desc")">
+                    Title Z → A
+                </option>
+            </select>
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary me-2">
+                🔍 Search
+            </button>
+            <a asp-page="./Index" class="btn btn-secondary">
+                Reset
+            </a>
+        </div>
+    </div>
+</form>
+
+@if (!Model.NewsList.Any())
+{
+    <div class="alert alert-warning">
+        No news found.
+    </div>
+}
+else
+{
+    <div class="list-group mb-4">
+        @foreach (var news in Model.NewsList)
+        {
+            <div class="list-group-item mb-2 p-3 shadow-sm rounded">
+                <div class="row">
+
+                    @if (!string.IsNullOrEmpty(news.ImageUrl))
+                    {
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <img src="@news.ImageUrl" alt="@news.NewsTitle" class="img-fluid rounded" style="width: 100%; height: 160px; object-fit: cover;" onerror="this.style.display='none';" />
+                        </div>
+                    }
+
+                    <div class="@(!string.IsNullOrEmpty(news.ImageUrl) ? "col-md-9" : "col-12")">
+                        <h5 class="mb-1 text-primary">@news.NewsTitle</h5>
+
+                        <small class="text-muted d-block mb-2">
+                            📂 Category: @news.Category?.CategoryName |
+                            📅 Created: @(news.CreatedDate?.ToString("dd/MM/yyyy")) |
+                            ✍️ By: @news.CreatedBy?.AccountName |
+                            👁️ Views: <span class="fw-bold text-dark">@(news.Views ?? 0)</span>
+                        </small>
+
+                        <p class="mt-2 text-dark">
+                            @news.Headline
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a asp-page="/News/Detail" asp-route-id="@news.NewsArticleId" class="btn btn-sm btn-outline-primary">
+                                📖 Read Full Article
+                            </a>
+
+                            @if (news.Tags != null && news.Tags.Any())
+                            {
+                                <div>
+                                    @foreach (var t in news.Tags)
+                                    {
+                                        <span class="badge bg-info text-dark me-1">#@t.TagName</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<!-- ================= PAGINATION ================= -->
+@if (Model.TotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+
+            <!-- Previous -->
+            <a class="page-link"
+               asp-page="./Index"
+               asp-route-CurrentPage="@(Model.CurrentPage - 1)"
+               asp-route-Keyword="@Model.Keyword"
+               asp-route-CategoryName="@Model.CategoryName"
+               asp-route-TagName="@Model.TagName"
+               asp-route-CreatedByID="@Model.CreatedByID"
+               asp-route-AuthorId="@Model.AuthorId"
+               asp-route-Status="@Model.Status"
+               asp-route-StartDate="@Model.StartDate"
+               asp-route-EndDate="@Model.EndDate"
+               asp-route-SortBy="@Model.SortBy">
+                Previous
+            </a>
+
+
+            <!-- Page Numbers -->
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    @* <a class="page-link"
+                       asp-page="./Index"
+                       asp-route-CurrentPage="@i"
+                       asp-route-Keyword="@Model.Keyword"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-TagName="@Model.TagName"
+                       asp-route-CreatedByID="@Model.CreatedByID"
+                       asp-route-StartDate="@Model.StartDate"
+                       asp-route-EndDate="@Model.EndDate"
+                       asp-route-SortBy="@Model.SortBy">
+                        @i
+                    </a> *@
+                    <a class="page-link"
+                       asp-page="./Index"
+                       asp-route-CurrentPage="@i"
+                       asp-route-Keyword="@Model.Keyword"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-TagName="@Model.TagName"
+                       asp-route-CreatedByID="@Model.CreatedByID"
+                       asp-route-AuthorId="@Model.AuthorId"
+                       asp-route-Status="@Model.Status"
+                       asp-route-StartDate="@Model.StartDate"
+                       asp-route-EndDate="@Model.EndDate"
+                       asp-route-SortBy="@Model.SortBy">
+                        @i
+                    </a>
+
+                </li>
+            }
+
+            <!-- Next -->
+            <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       asp-page="./Index"
+                       asp-route-CurrentPage="@(Model.CurrentPage + 1)"
+                       asp-route-Keyword="@Model.Keyword"
+                       asp-route-CategoryName="@Model.CategoryName"
+                       asp-route-TagName="@Model.TagName"
+                       asp-route-CreatedByID="@Model.CreatedByID"
+                       asp-route-AuthorId="@Model.AuthorId"
+                       asp-route-Status="@Model.Status"
+                       asp-route-StartDate="@Model.StartDate"
+                       asp-route-EndDate="@Model.EndDate"
+                       asp-route-SortBy="@Model.SortBy">
+                        Next
+                    </a>
+            </li>
+        </ul>
+    </nav>
+}
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        (function () {
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/reportHub")
+                .withAutomaticReconnect()
+                .configureLogging(signalR.LogLevel.Warning)
+                .build();
+
+            connection.on("ReportsUpdated", () => {
+                console.info("ReportsUpdated received - reloading page to refresh news list.");
+                location.reload();
+            });
+
+            connection.on("ReportsDeleted", () => {
+                console.info("ReportsDeleted received - reloading page to refresh news list.");
+                location.reload();
+            });
+
+            // New: listen for metadata changes (tags/categories)
+            connection.on("MetadataUpdated", (metaType) => {
+                try {
+                    const t = (metaType || "").toString().toLowerCase();
+                    console.info("MetadataUpdated received:", t);
+                    if (t === "tag" || t === "category") {
+                        // reload to refresh dropdowns/filters on the home page
+                        location.reload();
+                    }
+                } catch (e) {
+                    console.warn("Error handling MetadataUpdated", e);
+                    location.reload();
+                }
+            });
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.info("Connected to /reportHub");
+                } catch (err) {
+                    console.warn("SignalR connection failed, retrying in 5s", err);
+                    setTimeout(start, 5000);
+                }
+            }
+
+            start();
+        })();
+    </script>
+}

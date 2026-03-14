@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DoQuangThang_SE1885_A01_BE",
+    "\\DoQuangThang_SE1885_A01_BE\\DataAccess",
+    "\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO",
+    "\\DoQuangThang_SE1885_A01_BE\\Presentation",
+    "\\DoQuangThang_SE1885_A01_BE\\Presentation\\Controllers",
+    "\\DoQuangThang_SE1885_A01_FE",
+    "\\DoQuangThang_SE1885_A01_FE\\DoQuangThang_SE1885_A01_FE"
+  ],
+  "SelectedNode": "\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DAO\\NewsArticleDAO.cs",
+  "PreviewInSolutionExplorer": false
+}

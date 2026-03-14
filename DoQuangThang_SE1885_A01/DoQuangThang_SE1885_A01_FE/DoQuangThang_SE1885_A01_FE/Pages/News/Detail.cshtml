@@ -1,0 +1,83 @@
+﻿@page
+@model DoQuangThang_SE1885_A01_FE.Pages.News.DetailModel
+@{
+}
+
+<div class="container mt-4">
+    <a asp-page="./Index" class="btn btn-secondary mb-3">⬅ Back to List</a>
+
+    @if (Model.News != null)
+    {
+        <article class="card shadow-sm p-4 mb-5">
+            <h1 class="display-5 text-primary mb-3">@Model.News.NewsTitle</h1>
+
+            <div class="d-flex flex-wrap justify-content-between text-muted border-bottom pb-2 mb-3">
+                <span class="me-3"><strong>📂 Category:</strong> @Model.News.Category?.CategoryName</span>
+                <span class="me-3"><strong>📅 Posted on:</strong> @Model.News.CreatedDate?.ToString("MMMM dd, yyyy")</span>
+                <span class="me-3"><strong>✍️ Author:</strong> @Model.News.CreatedBy?.AccountName</span>
+                <span><strong>👁️ Views:</strong> <span class="fw-bold text-dark">@(Model.News.Views ?? 0)</span></span>
+            </div>
+
+            <p class="lead fw-bold text-secondary">@Model.News.Headline</p>
+
+            @if (!string.IsNullOrEmpty(Model.News.ImageUrl))
+            {
+                <div class="text-center mb-4">
+                    <img src="@Model.News.ImageUrl" alt="@Model.News.NewsTitle" class="img-fluid rounded shadow-sm" style="max-height: 500px; width: 100%; object-fit: cover;" onerror="this.style.display='none';" />
+                </div>
+            }
+
+            <div class="news-content" style="white-space: pre-line; line-height: 1.8;">
+                @Model.News.NewsContent
+            </div>
+
+            @if (Model.News.Tags != null && Model.News.Tags.Any())
+            {
+                <div class="mt-4 border-top pt-3">
+                    <strong>Tags:</strong>
+                    @foreach (var tag in Model.News.Tags)
+                    {
+                        <span class="badge bg-info text-dark me-1">#@tag.TagName</span>
+                    }
+                </div>
+            }
+        </article>
+    }
+</div>
+
+@if (Model.RelatedArticles.Any())
+{
+    <div class="container mt-5 mb-5">
+        <h4 class="mb-4 border-bottom pb-2">💡 Related Articles</h4>
+        <div class="row g-4">
+            @foreach (var related in Model.RelatedArticles)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        @if (!string.IsNullOrEmpty(related.ImageUrl))
+                        {
+                            <img src="@related.ImageUrl" class="card-img-top" alt="@related.NewsTitle" style="height: 180px; object-fit: cover;" onerror="this.style.display='none';" />
+                        }
+
+                        <div class="card-body">
+                            <span class="badge bg-secondary mb-2">@related.Category?.CategoryName</span>
+                            <h6 class="card-title">
+                                <a asp-page="/News/Detail" asp-route-id="@related.NewsArticleId" class="text-decoration-none">
+                                    @related.NewsTitle
+                                </a>
+                            </h6>
+                            <p class="card-text small text-muted">
+                                @(related.Headline?.Length > 80 ? related.Headline.Substring(0, 80) + "..." : related.Headline)
+                            </p>
+                        </div>
+
+                        <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
+                            <small class="text-muted">📅 @related.CreatedDate?.ToString("dd/MM/yyyy")</small>
+                            <small class="text-muted fw-bold">👁️ @(related.Views ?? 0)</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

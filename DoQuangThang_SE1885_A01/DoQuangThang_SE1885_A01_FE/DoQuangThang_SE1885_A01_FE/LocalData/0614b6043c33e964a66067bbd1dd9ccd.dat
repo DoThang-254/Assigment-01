@@ -1,0 +1,1 @@
+{"@odata.context":"https://localhost:7066/api/$metadata#tag","@odata.count":10,"value":[{"TagId":7,"TagName":"Alumni ","Note":"Alumni News"},{"TagId":8,"TagName":"Events","Note":"University Events"},{"TagId":9,"TagName":"Resources","Note":"Campus Resources"}]}
