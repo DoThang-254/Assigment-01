@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -32,9 +33,13 @@ public partial class FunewsManagementContext : DbContext
     public virtual DbSet<AuditLog> AuditLogs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=thang\\SQLEXPRESS13;uid=sa;password=123;database=FUNewsManagement;Encrypt=True;TrustServerCertificate=True;");
+    {
 
+    }
+    //{
+    //    var config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+    //    optionsBuilder.UseSqlServer(config.GetConnectionString("MyCnn"));
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Category>(entity =>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj": {}
+    "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj": {}
   },
   "projects": {
-    "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj": {
+    "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj",
+        "projectUniqueName": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj",
         "projectName": "BusinessLogic",
-        "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj",
+        "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\thang\\.nuget\\packages\\",
-        "outputPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\obj\\",
+        "outputPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj"
+              "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -48,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -78,23 +78,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
+    "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj",
+        "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\thang\\.nuget\\packages\\",
-        "outputPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\obj\\",
+        "outputPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -127,7 +141,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -155,23 +169,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj": {
+    "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj",
+        "projectUniqueName": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj",
         "projectName": "CoreAPI",
-        "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj",
+        "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\CoreAPI.csproj",
         "packagesPath": "C:\\Users\\thang\\.nuget\\packages\\",
-        "outputPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\obj\\",
+        "outputPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -192,11 +220,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj": {
-                "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj"
+              "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj": {
+                "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\BusinessLogic\\BusinessLogic.csproj"
               },
-              "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "D:\\github.com\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj"
+              "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\DataAccess.csproj"
               }
             }
           }
@@ -211,7 +239,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net8.0": {
@@ -247,6 +275,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.25, 8.0.25]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -255,7 +301,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
