@@ -22,11 +22,11 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
+        run: dotnet restore DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
         working-directory: .
 
       - name: Build
-        run: dotnet build DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
+        run: dotnet build DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
         working-directory: .
 
   # Job 2: Đóng gói Docker và đẩy lên Docker Hub
@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
+          file: ./DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
           push: true
           # Sử dụng biến từ Secret để linh hoạt
           tags: ${{ secrets.DOCKER_USERNAME }}/coreapi:latest
