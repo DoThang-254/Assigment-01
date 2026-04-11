@@ -3,9 +3,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy project files for restore
-COPY ["DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj", "Presentation/"]
-COPY ["DoQuangThang_SE1885_A01_BE/BusinessLogic/BusinessLogic.csproj", "BusinessLogic/"]
-COPY ["DoQuangThang_SE1885_A01_BE/DataAccess/DataAccess.csproj", "DataAccess/"]
+COPY ["DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj", "Presentation/"]
+COPY ["DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/BusinessLogic/BusinessLogic.csproj", "BusinessLogic/"]
+COPY ["DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/DataAccess/DataAccess.csproj", "DataAccess/"]
 
 # Restore dependencies
 RUN dotnet restore "Presentation/CoreAPI.csproj"
