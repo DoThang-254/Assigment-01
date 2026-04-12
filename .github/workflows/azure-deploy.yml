@@ -47,7 +47,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./DoQuangThang_SE1885_A01
           file: ./DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
           push: true
           # Sử dụng biến từ Secret để linh hoạt
