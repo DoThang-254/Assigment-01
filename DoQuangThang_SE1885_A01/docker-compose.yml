@@ -6,7 +6,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Server=host.docker.internal;Database=FUNewsManagement;User Id=sa;Password=123;TrustServerCertificate=True;
+      - ConnectionStrings__MyCnn=Server=host.docker.internal;Database=FUNewsManagement;User Id=sa;Password=123;TrustServerCertificate=True;
     deploy:
       replicas: 3
     networks:

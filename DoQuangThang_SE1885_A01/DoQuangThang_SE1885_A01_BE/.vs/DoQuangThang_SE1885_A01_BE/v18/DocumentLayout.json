@@ -3,48 +3,12 @@
   "WorkspaceRootPath": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|solutionrelative:presentation\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\dataaccess\\migrations\\20260210062454_updatenewsfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\migrations\\20260210062454_updatenewsfields.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\dataaccess\\models\\funewsmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5EE21E65-94B4-4F58-94B3-3A94FE3CE134}|DataAccess\\DataAccess.csproj|solutionrelative:dataaccess\\models\\funewsmanagementcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|solutionrelative:presentation\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1B262F1C-D695-42D3-8F52-9365BB6CE6A9}|AnalyticsAPI\\AnalyticsAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\analyticsapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{1B262F1C-D695-42D3-8F52-9365BB6CE6A9}|AnalyticsAPI\\AnalyticsAPI.csproj|solutionrelative:analyticsapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{60480378-3D6C-4DF5-B2B4-CC6F4055DE9A}|WorkerService\\WorkerService.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\workerservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{60480378-3D6C-4DF5-B2B4-CC6F4055DE9A}|WorkerService\\WorkerService.csproj|solutionrelative:workerservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\aiapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|solutionrelative:aiapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{60480378-3D6C-4DF5-B2B4-CC6F4055DE9A}|WorkerService\\WorkerService.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\workerservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60480378-3D6C-4DF5-B2B4-CC6F4055DE9A}|WorkerService\\WorkerService.csproj|solutionrelative:workerservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|solutionrelative:presentation\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\aiapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|solutionrelative:aiapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\aiapi\\controllers\\aicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6325CEA-FE43-4C12-B5AE-4C6F45BB710C}|AIAPI\\AIAPI.csproj|solutionrelative:aiapi\\controllers\\aicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|d:\\.net\\fu-news\\assigment-01\\doquangthang_se1885_a01\\doquangthang_se1885_a01_be\\presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{314A82FE-C5BC-4F45-A4B1-C7AA4AB5F059}|Presentation\\CoreAPI.csproj|solutionrelative:presentation\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -59,136 +23,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Dockerfile",
-              "RelativeDocumentMoniker": "Presentation\\Dockerfile",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Dockerfile",
-              "RelativeToolTip": "Presentation\\Dockerfile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-04-11T13:47:25.479Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "20260210062454_UpdateNewsFields.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Migrations\\20260210062454_UpdateNewsFields.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Migrations\\20260210062454_UpdateNewsFields.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Migrations\\20260210062454_UpdateNewsFields.cs",
-              "RelativeToolTip": "DataAccess\\Migrations\\20260210062454_UpdateNewsFields.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T06:43:25.088Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FunewsManagementContext.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Models\\FunewsManagementContext.cs",
-              "RelativeDocumentMoniker": "DataAccess\\Models\\FunewsManagementContext.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\DataAccess\\Models\\FunewsManagementContext.cs",
-              "RelativeToolTip": "DataAccess\\Models\\FunewsManagementContext.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAADwvyQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T06:34:43.222Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\WorkerService\\appsettings.json",
-              "RelativeDocumentMoniker": "WorkerService\\appsettings.json",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\WorkerService\\appsettings.json",
-              "RelativeToolTip": "WorkerService\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-11T05:46:52.238Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\WorkerService\\Program.cs",
-              "RelativeDocumentMoniker": "WorkerService\\Program.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\WorkerService\\Program.cs",
-              "RelativeToolTip": "WorkerService\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T05:46:50.476Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AnalyticsAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "AnalyticsAPI\\appsettings.json",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AnalyticsAPI\\appsettings.json",
-              "RelativeToolTip": "AnalyticsAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-11T05:22:18.97Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\appsettings.json",
               "RelativeDocumentMoniker": "Presentation\\appsettings.json",
               "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\appsettings.json",
               "RelativeToolTip": "Presentation\\appsettings.json",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABIAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-11T04:01:25.044Z"
+              "WhenOpened": "2026-04-12T02:37:35.585Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Program.cs",
-              "RelativeDocumentMoniker": "Presentation\\Program.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Program.cs",
-              "RelativeToolTip": "Presentation\\Program.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T04:01:25.235Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\appsettings.json",
-              "RelativeDocumentMoniker": "AIAPI\\appsettings.json",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\appsettings.json",
-              "RelativeToolTip": "AIAPI\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAADAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Presentation\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\Presentation\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Presentation\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-04-11T04:01:25.264Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\Program.cs",
-              "RelativeDocumentMoniker": "AIAPI\\Program.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\Program.cs",
-              "RelativeToolTip": "AIAPI\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T04:01:25.245Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AIController.cs",
-              "DocumentMoniker": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\Controllers\\AIController.cs",
-              "RelativeDocumentMoniker": "AIAPI\\Controllers\\AIController.cs",
-              "ToolTip": "D:\\.net\\FU-News\\Assigment-01\\DoQuangThang_SE1885_A01\\DoQuangThang_SE1885_A01_BE\\AIAPI\\Controllers\\AIController.cs",
-              "RelativeToolTip": "AIAPI\\Controllers\\AIController.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAcwHQAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T04:01:25.258Z"
+              "WhenOpened": "2026-04-12T02:34:49.612Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
