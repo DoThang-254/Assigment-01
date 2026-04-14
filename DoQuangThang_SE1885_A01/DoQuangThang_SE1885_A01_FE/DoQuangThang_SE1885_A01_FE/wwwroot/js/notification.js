@@ -1,10 +1,15 @@
-﻿// --- CẤU HÌNH ---
-const API_URL = "https://localhost:7066"; // Đổi thành port của Backend API
+// --- CẤU HÌNH ---
+const API_URL = "http://localhost:8080"; // Đã đổi thành cổng của Nginx Load Balancer (Docker)
 const HUB_URL = `${API_URL}/hubs/notifications`;
 
 // 1. Khởi tạo kết nối SignalR
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl(HUB_URL)
+    .withUrl(HUB_URL, {
+        // 1. Ép buộc bỏ qua bước bắt tay HTTP 
+        skipNegotiation: true,
+        // 2. Ép buộc chỉ dùng phương thức WebSocket (không dùng Long Polling)
+        transport: signalR.HttpTransportType.WebSockets
+    })
     .withAutomaticReconnect() // Tự động kết nối lại nếu mất mạng
     .build();
 
@@ -17,7 +22,7 @@ connection.on("ReceiveNewArticle", (data) => {
     showToast(data.msg);
 
     // B. Thêm vào danh sách dropdown
-    addNotificationToUi(data.msg, data.date);  
+    addNotificationToUi(data.msg, data.date);
 
     // C. Cập nhật số lượng chưa đọc
     updateBadgeCount();
@@ -53,7 +58,8 @@ function loadRecentNotifications() {
                 });
 
                 // Cập nhật số lượng thông báo dựa trên số item lấy được
-                updateBadgeCount(data.length);            }
+                updateBadgeCount(data.length);
+            }
         })
         .catch(err => console.error("Không tải được lịch sử thông báo", err));
 }

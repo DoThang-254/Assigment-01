@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Dto;
+using Microsoft.AspNetCore.SignalR;
+using BusinessLogic.Dto;
 using BusinessLogic.Services.Implementations;
 using BusinessLogic.Services.Interfaces;
 using CoreAPI.Hubs;
@@ -18,10 +19,23 @@ using Presentation.ViewModels.Auth;
 using Slot8_9_7_CsvHelper;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+
+// Health Check Configuration
+//builder.Services.AddHealthChecks();
+// Trong Program.cs:
+builder.Services.AddHealthChecks()
+    .AddCheck("ChaosCheck", () =>
+        GlobalState.IsHealthy
+            ? Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Healthy()
+            : Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult.Unhealthy()
+    );
 
 // CORS configuration
 builder.Services.AddCors(options =>
@@ -30,7 +44,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins("https://localhost:7293") // FE của bạn
+                .WithOrigins("https://localhost:7293") // FE 
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -46,8 +60,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<FunewsManagementContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
 
-// Cấu hình SignalR
-builder.Services.AddSignalR();
+// Redis for SignalR
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+
+// Đăng ký SignalR và nối nó với Redis
+if (!string.IsNullOrEmpty(redisConnectionString))
+{
+    builder.Services.AddSignalR()
+           .AddStackExchangeRedis(redisConnectionString);
+}
+else
+{
+    // Nếu chạy Dev không có Redis thì chỉ add SignalR bình thường
+    builder.Services.AddSignalR();
+}
 
 // Cấu hình OData EDM
 var edmBuilder = new ODataConventionModelBuilder();
@@ -208,6 +234,36 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddResponseCaching();
 
+// --- CẤU HÌNH RATE LIMITING BẰNG MIDDLEWARE ---
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
+        await context.HttpContext.Response.WriteAsync("{\"status\": 429, \"message\": \"Bạn đang thao tác quá nhanh, thử lại sau ít giây\"}");
+    };
+
+    options.AddFixedWindowLimiter("FixedWindow", opt =>
+    {
+        opt.Window = TimeSpan.FromSeconds(10);
+        opt.PermitLimit = 5;
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit = 0;
+    });
+
+    options.AddTokenBucketLimiter("TokenBucket", opt =>
+    {
+        opt.TokenLimit = 100;
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit = 0;
+        opt.ReplenishmentPeriod = TimeSpan.FromMinutes(1);
+        opt.TokensPerPeriod = 10;
+        opt.AutoReplenishment = true;
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -218,6 +274,10 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseSession();
+
+// --- ÁP DỤNG RATE LIMITING ---
+app.UseRateLimiter();
+
 app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseHttpsRedirection();
@@ -234,8 +294,63 @@ app.UseAuthorization();
 
 app.UseMiddleware<AuditMiddleware>();
 
+bool isHealthy = true;
+
+app.MapGet("/break", () =>
+{
+    GlobalState.IsHealthy = false;
+    return Results.Ok($"🔴 Server {Environment.MachineName} is now SICK!");
+});
+
+app.MapGet("/fix", () =>
+{
+    GlobalState.IsHealthy = true;
+    return Results.Ok($"🟢 Server {Environment.MachineName} is HEALTHY again!");
+});
+
+app.MapHealthChecks("/health");
+
+// API ẨN DÙNG ĐỂ TEST BẮN THÔNG BÁO SIGNALR TRỰC TIẾP QUA REDIS!
+app.MapGet("/test-notify", async (Microsoft.AspNetCore.SignalR.IHubContext<CoreAPI.Hubs.NotificationHub> hub) => 
+{
+    var serverName = Environment.MachineName; // Lấy ra tên Container hiện tại (api-1 hay api-2?)
+    
+    var data = new { 
+        msg = $"[TỪ {serverName}] 🔥 Một bài báo mới siêu KHỦNG khiếp vừa được lên trang!", 
+        date = DateTime.Now.ToString("o") 
+    };
+
+    // Bắn thông báo xuống toàn bộ Client
+    await hub.Clients.All.SendAsync("ReceiveNewArticle", data);
+    
+    return Results.Ok($"Đã mượn {serverName} bắn Data thành công xuống toàn bộ FrontEnd!");
+});
+
+// 2. Middleware chặn cửa - Chỉ chặn các request THỰC SỰ là nghiệp vụ
+app.Use(async (context, next) =>
+{
+    var path = context.Request.Path.Value?.ToLower();
+
+    // DANH SÁCH LOẠI TRỪ: Không chặn các route điều khiển hệ thống
+    if (!GlobalState.IsHealthy &&
+        path != "/fix" &&
+        path != "/break" &&
+        path != "/health")
+    {
+        context.Response.StatusCode = 503;
+        await context.Response.WriteAsync("Chaos Engineering: Server is simulating a crash!");
+        return;
+    }
+    await next();
+});
+
 app.MapControllers();
 
 app.MapHub<NotificationHub>("/hubs/notifications");
 
 app.Run();
+
+public static class GlobalState
+{
+    public static bool IsHealthy = true;
+}
