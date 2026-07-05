@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore Assigment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
+        run: dotnet restore Assignment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
 
       - name: Build
-        run: dotnet build Assigment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
+        run: dotnet build Assignment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
 
   # Job 2: Đóng gói Docker và đẩy lên Docker Hub
   docker-build-push:
@@ -47,8 +47,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./Assigment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE
-          file: ./Assigment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
+          context: ./Assignment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE
+          file: ./Assignment-01/DoQuangThang_SE1885_A01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/funews:latest
 
