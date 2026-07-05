@@ -11,7 +11,7 @@ on:
       - develop
 
 jobs:
-  # Job 1: Build và Test Code .NET (Chạy cho CẢ main và develop)
+  # Job 1: Build và Test Code .NET
   build-and-test:
     runs-on: ubuntu-latest
     steps:
@@ -24,18 +24,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        # THÊM Assigment-01/ vào đầu đường dẫn
         run: dotnet restore Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
 
       - name: Build
-        # THÊM Assigment-01/ vào đầu đường dẫn
         run: dotnet build Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
 
-  # Job 2: Đóng gói Docker và đẩy lên Docker Hub (CHỈ chạy khi push vào main VÀ job 1 phải pass)
+  # Job 2: Đóng gói Docker và đẩy lên Docker Hub
   docker-build-push:
     runs-on: ubuntu-latest
     needs: build-and-test
-    if: github.ref == 'refs/heads/main' && success() # success() đảm bảo job 1 phải pass
+    if: github.ref == 'refs/heads/main' && success()
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,16 +44,16 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-     - name: Build and push Docker image
+      # FIX: Đã căn chỉnh thẳng hàng 6 dấu cách chuẩn cấu trúc YAML
+      - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          # THÊM Assigment-01/ vào trước đường dẫn ngữ cảnh và Dockerfile
           context: ./Assigment-01/DoQuangThang_SE1885_A01_BE
           file: ./Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/funews:latest
 
-  # Job 3: Triển khai lên Azure (CHỈ chạy khi push vào main VÀ job 2 phải pass)
+  # Job 3: Triển khai lên Azure
   deploy:
     runs-on: ubuntu-latest
     needs: docker-build-push
