@@ -78,7 +78,7 @@ namespace DoQuangThang_SE1885_A01_FE.Pages.Auth
             {
                 0 => RedirectToPage("/Reports/Analytics"), // Admin
                 1 => RedirectToPage("/News/Index"),    // Staff
-                2 => RedirectToPage("/Lecturer/Index"),// Lecturer
+                2 => RedirectToPage("/Index"),// Lecturer
                 _ => RedirectToPage("/Index")          // Khách
             };
         }

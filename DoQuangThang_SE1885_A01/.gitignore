@@ -1,0 +1,44 @@
+# ==========================================
+# 1. Security & Credentials (Bảo mật)
+# ==========================================
+# Chặn các file cấu hình chứa Connection String, Secret Keys, VNPAY...
+appsettings.json
+appsettings.Development.json
+appsettings*.json
+*.env
+*.env.local
+
+# Chặn thư mục chứa chứng chỉ/SSL key cục bộ
+certs/
+*.pfx
+*.pem
+
+# ==========================================
+# 2. .NET / Visual Studio Build Outputs
+# ==========================================
+[Bb]in/
+[Oo]bj/
+[Log]/
+# Chặn các thư mục biên dịch cụ thể trong cây thư mục của bạn
+DoQuangThang_SE1885_A01_BE/*/bin/
+DoQuangThang_SE1885_A01_BE/*/obj/
+DoQuangThang_SE1885_A01_FE/*/bin/
+DoQuangThang_SE1885_A01_FE/*/obj/
+
+# ==========================================
+# 3. IDE & Tools Configuration (Cấu hình công cụ)
+# ==========================================
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ==========================================
+# 4. Operating System Files (Hệ điều hành)
+# ==========================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
