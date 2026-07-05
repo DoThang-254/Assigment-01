@@ -16,25 +16,29 @@ https://docs.google.com/document/d/1t6TvbyGMaiL6wQJD9xEt4cIsFA1RMhWj38LiNmBvEz8/
 
 Below is the duster-free repository tree mapping out the core application layers, infrastructure setup, and deployment files:
 
+### 📂 System Architecture & Directory Layout
+
+Below is the cluster-free repository tree mapping out the core application layers, infrastructure setup, and deployment files:
+
+```
 Assigment-01/
-├── .github/workflows/              # CI/CD Pipelines (GitHub Actions)
-├── docker-compose.yml              # Docker Multi-Container orchestration tool
-├── nginx.conf                      # Nginx Reverse Proxy & Load Balancer configuration
-│
-├── DoQuangThang_SE1885_A01_BE/     # [BACKEND SYSTEM SOLUTION]
-│   ├── AIAPI/                      # AI Models and Core Intelligent Services integration
-│   ├── AnalyticsAPI/               # Data telemetry and metrics processing API
-│   ├── BusinessLogic/              # Core business rules handling (Services & Dtos)
-│   ├── DataAccess/                 # Database persistence (Models, Repositories, Migrations)
-│   ├── Presentation/               # Primary API Gateway / Public Gateway Endpoints
-│   └── WorkerService/              # Background Services & Scheduled Tasks
-│
-└── DoQuangThang_SE1885_A01_FE/     # [FRONTEND SYSTEM SOLUTION]
-    └── DoQuangThang_SE1885_A01_FE/ # Client Web Application (User Interface)
-        ├── Pages/                  # Dynamic Razor views (Accounts, News, Categories, Tags...)
-        ├── Models/                 # Client-side Data Transfer / Binding Models
-        ├── Services/               # Dedicated API Consumers / HttpClients
-        └── Hubs/                   # Real-time WebSockets communication (SignalR)
+├── .github/workflows/                             # CI/CD Pipelines (GitHub Actions)
+├── docker-compose.yml                             # Docker Multi-Container orchestration tool
+├── nginx.conf                                     # Nginx Reverse Proxy & Load Balancer configuration
+├── DoQuangThang_SE1885_A01_BE/                    # [BACKEND SYSTEM SOLUTION]
+│   ├── AIAPI/                                     # AI Models and Core Intelligent Services integration
+│   ├── AnalyticsAPI/                              # Data telemetry and metrics processing API
+│   ├── BusinessLogic/                             # Core business rules handling (Services & Dtos)
+│   ├── DataAccess/                                # Database persistence (Models, Repositories, Migrations)
+│   ├── Presentation/                              # Primary API Gateway / Public Gateway Endpoints
+│   └── WorkerService/                             # Background Services & Scheduled Tasks
+└── DoQuangThang_SE1885_A01_FE/                    # [FRONTEND SYSTEM SOLUTION]
+    └── DoQuangThang_SE1885_A01_FE/                # Client Web Application (User Interface)
+        ├── Pages/                                 # Dynamic Razor views (Accounts, News, Categories, Tags...)
+        ├── Models/                                # Client-side Data Transfer / Binding Models
+        ├── Services/                              # Dedicated API Consumers / HttpClients
+        └── Hubs/                                  # Real-time WebSockets communication (SignalR)
+```
 
 
 🚀 Local Setup & Execution Guide

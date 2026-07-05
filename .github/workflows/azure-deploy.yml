@@ -23,12 +23,13 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      # FIX: Sửa lại đường dẫn chuẩn bỏ thư mục thừa đi
       - name: Restore dependencies
-        run: dotnet restore DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
+        # THÊM Assigment-01/ vào đầu đường dẫn
+        run: dotnet restore Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj
 
       - name: Build
-        run: dotnet build DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
+        # THÊM Assigment-01/ vào đầu đường dẫn
+        run: dotnet build Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/CoreAPI.csproj --configuration Release --no-restore
 
   # Job 2: Đóng gói Docker và đẩy lên Docker Hub (CHỈ chạy khi push vào main VÀ job 1 phải pass)
   docker-build-push:
@@ -45,12 +46,12 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # FIX: Sửa lại context và đường dẫn Dockerfile cho đúng cấu trúc folder thật
-      - name: Build and push Docker image
+     - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./DoQuangThang_SE1885_A01_BE
-          file: ./DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
+          # THÊM Assigment-01/ vào trước đường dẫn ngữ cảnh và Dockerfile
+          context: ./Assigment-01/DoQuangThang_SE1885_A01_BE
+          file: ./Assigment-01/DoQuangThang_SE1885_A01_BE/Presentation/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/funews:latest
 
